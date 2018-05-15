@@ -35,7 +35,7 @@ A proof of leftpad is going to be small enough to be (mostly) grokkable by Forma
 
 ## I want to contribute!
 
-We'd love to have you! Please read the contribution guidelines, and then submit your favorite proofs!
+We'd love to have you! Please [read the contribution guidelines](https://github.com/hwayne/lets-prove-leftpad/blob/master/CONTRIBUTING.md), and then submit your favorite proofs!
 
 ### Plug
 
