@@ -1,3 +1,6 @@
+
+(Edited version of: https://ucsd-progsys.github.io/liquidhaskell-blog/2018/05/17/hillel-verifier-rodeo-I-leftpad.lhs/)
+
 A month ago, [Hillel Wayne](https://twitter.com/Hillelogram)
 posted a three-part [verification challenge](https://twitter.com/Hillelogram/status/987432180837167104): 
 While some of the problems might sound frivolous, in fact, 
