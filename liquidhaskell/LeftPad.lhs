@@ -189,18 +189,6 @@ rapidly take SMT solvers out of this "comfort zone",
 causing them to reject valid formulas, run slowly, 
 or even, [to run forever][regehr-tweet].
 
-<!--
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">I mean, I&#39;m somewhat kind of serious here, I think unneeded generality makes things really difficult often. as a random example quantifiers seem to throw z3 into a really bad place, even when they&#39;re easy ones.</p>&mdash; John Regehr (@johnregehr) <a href="https://twitter.com/johnregehr/status/996901816842440704?ref_src=twsrc%5Etfw">May 16, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<div class="row-fluid">
-  <div class="span12 pagination-centered">
-  <img src="https://ucsd-progsys.github.io/liquidhaskell-blog/static/img/regehr-tweet-quantifiers.png"
-       alt="Ribbons" height="100">
-  </div>
-</div>
--->
-
 Thus, we have chosen to deliberately avoid 
 the siren song of quantifiers by lashing LH 
 firmly to the steady mast of decidable logics.
