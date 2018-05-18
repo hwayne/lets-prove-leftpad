@@ -1,4 +1,4 @@
-[LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
+# [LiquidHaskell](https://ucsd-progsys.github.io/liquidhaskell-blog/)
 
 ## About LiquidHaskell
 
