@@ -317,40 +317,6 @@ the replicate- and concatenate-left theorems
 if `i` is in the "pad", and the concatenate-right 
 theorem, otherwise.
 
-Conclusions 
------------
-
-That concludes part I of the rodeo. What did I learn from this exercise?
-
-1. Even apparently simple functions like `leftPad` can 
-   have _many_ different specifications; there is no 
-   necessarily "best" specification as different specs 
-   make different assumptions about what is "trusted", 
-   and more importantly, though we didn't see it here, 
-   ultimately a spec is a particular _view_ into how a 
-   piece of code behaves and 
-   we may want different views depending on the context where we want 
-   to use the given piece of code.
-
-2. The `leftPad` exercise illustrates a fundamental 
-   problem with Floyd-Hoare style "modular" verification, 
-   where pre- and post-conditions (or contracts or refinement 
-   types or ...) are used to modularly "abstract" functions 
-   i.e. are used to describe the behavior of a function 
-   at a call-site. As the above exercise shows, we often 
-   need properties connecting the behavior of different 
-   functions, e.g. append (`++`), indexing (`!!`). 
-   In these cases, the only meaningful _specification_ 
-   for the underlying function _is its implementation_.
-
-3. Finally, the above proofs are all over user-defined 
-   recursive functions which this was not even possible 
-   before [refinement reflection][tag-reflection], i.e 
-   till about a year ago. I'm also quite pleased by how 
-   [logical evaluation][tag-ple] makes these proofs 
-   quite short, letting LH verify expressive specifications 
-   while remaining clear of the siren song of quantifiers.
-
 [demo]:             http://goto.ucsd.edu:8090/index.html#?demo=LeftPad.hs
 [dafny-leftpad]:    https://rise4fun.com/Dafny/nbNTl
 [spark-leftpad]:    https://blog.adacore.com/taking-on-a-challenge-in-spark
