@@ -27,7 +27,6 @@ that we call [proof by logical evaluation](https://arxiv.org/pdf/1711.03842).
 
 ## About Me 
 
-I am [Ranjit Jhala](https://twitter.com/RanjitJhala) one of the 
+I am [Ranjit Jhala](https://twitter.com/RanjitJhala), one of the 
 developers of LH and a professor of Computer Science and Engineering 
 at the [University of California, San Diego](http://ranjitjhala.github.io/).
-
