@@ -1,19 +1,3 @@
----
-layout: post
-title: The Hillelogram Verifier Rodeo I (LeftPad) 
-date: 2018-05-17
-comments: true
-author: Ranjit Jhala 
-published: true
-tags: reflection
-demo: LeftPad.hs
----
-
-<!--
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">You have to provide a 100%, machine-checked guarantee that there are no problems with your code whatsoever. If it&#39;s so much easier to analyze FP programs than imperative programs, this should be simple, right?</p>&mdash; Hillel (@Hillelogram) <a href="https://twitter.com/Hillelogram/status/987432180837167104?ref_src=twsrc%5Etfw">April 20, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
--->
-
 A month ago, [Hillel Wayne](https://twitter.com/Hillelogram)
 posted a three-part [verification challenge](https://twitter.com/Hillelogram/status/987432180837167104): 
 While some of the problems might sound frivolous, in fact, 
@@ -57,15 +41,6 @@ max x y = if x > y then x else y
 {-@ leftPadVal :: n:{Int | False} -> _ -> _ -> _ -> _ @-}
 \end{code}
 </div>
-
-The LeftPad Challenge 
----------------------
-
-The first of these problems was 
-[leftPad](https://twitter.com/Hillelogram/status/987432181889994759)
-
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">1. Leftpad. Takes a padding character, a string, and a total length, returns the string padded with that length with that character. If length is less than string, does nothing.<a href="https://t.co/X8qR8gTZdO">https://t.co/X8qR8gTZdO</a></p>&mdash; Hillel (@Hillelogram) <a href="https://twitter.com/Hillelogram/status/987432181889994759?ref_src=twsrc%5Etfw">April 20, 2018</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Implementation 
 --------------
