@@ -241,3 +241,8 @@ if `i` is in the "pad", and the concatenate-right
 theorem, otherwise.
 
 [blog]: https://ucsd-progsys.github.io/liquidhaskell-blog/2018/05/17/hillel-verifier-rodeo-I-leftpad.lhs/
+[dafny-leftpad]:    https://rise4fun.com/Dafny/nbNTl
+[spark-leftpad]:    https://blog.adacore.com/taking-on-a-challenge-in-spark
+[fstar-leftpad]:    https://gist.github.com/graydon/901f98049d05db65d9a50f741c7f7626
+[idris-leftpad]:    https://github.com/hwayne/lets-prove-leftpad/blob/master/idris/Leftpad.idr
+[dafny-seq-axioms]: https://github.com/Microsoft/dafny/blob/master/Binaries/DafnyPrelude.bpl#L898-L1110
