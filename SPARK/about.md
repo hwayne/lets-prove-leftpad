@@ -135,4 +135,6 @@ Explanations:
    quick (roughly 1 second on my machine for the entire file).
 
 3) The tool gives no interesting output, which means that all proofs went
-   through. You can also check this in the mentioned summary file.
+   through. You can also check this in the mentioned summary file, or add
+   `--report=all` or `--report=prover` to the command line to get success
+   messages for all proofs.
