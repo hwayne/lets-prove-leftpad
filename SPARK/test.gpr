@@ -1,0 +1,4 @@
+project Test is
+   for Main use ("test_padding.adb");
+   for Object_Dir use "obj";
+end Test;
