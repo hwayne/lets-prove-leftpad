@@ -53,9 +53,9 @@ from the other.
 
 Ada (and thus SPARK) has built-in concatenation of arrays and strings, using
 the `&` operator. So leftpad can be simply implemented as
-
+```
    padding & string
-
+```
 where the only difficulty lies in computing the amount of padding required.
 
 In a real SPARK program, because it's built-in, one would probably not write
@@ -77,32 +77,33 @@ I decided to do (2) above for the reason that it wouldn't be very idiomatic
 SPARK to write the code using a loop to implement concatenation.
 
 As we already have the implementation (it is in the `padding.adb` file), all
-these is to do is to write the specification of leftpad in predicate style (in
+there is to do is to write the specification of leftpad in predicate style (in
 `padding.ads`).
 
 The postcondition looks like this, where the argument of the function is
 called `S`, and the result of is written as `Left_Pad'Result` (we only mention
 the case where padding is actually required):
 
+```
         Left_Pad'Result'Length = Len and then
         (for all I in Left_Pad'Result'Range =>
            Left_Pad'Result (I) =
              (if I <= Len - S'Length then Pad_Char
               else S (I - (Len - S'Length + 1) + S'First)))
-
+```
 Some explanations:
 - For a string `S`, one can write `S'Length` to get its length.
 - `and then` is conjunction.
 - So the first part of the conjunction simply states that the result of the
   function is of the expected length.
-- To access a character at position I of the string S, (this is *not* the ith
-  character as per the next point) one writes S (I).
+- To access a character at position `I` of the string `S`, (this is *not* the ith
+  character as per the next point) one writes `S (I)`.
 - Strings in Ada are not 0-based nor 1-based, the user can choose the bounds
   freely. We have written `Left_Pad` in such a way that it accepts strings
   with arbitrary bounds, but returns 1-based strings (the most common usage in
   Ada). This makes it necessary to do some gymnastics to determine the correct
-  index in the argument string `S`. Bounds of strings are written S'First and
-  S'Last.
+  index in the argument string `S`. Bounds of strings are written `S'First` and
+  `S'Last`.
 - So the second part of the conjunction states that the ith character of the
   result (the result is 1-based, so it's indeed the ith character) is a
   padding character if `I` is smaller than some value, otherwise equal to the
@@ -119,8 +120,9 @@ Follow these steps to reproduce the proof:
 
 2) run
 
+```
   gnatprove -P test.gpr --steps=0
-
+```
 
 Explanations:
 
