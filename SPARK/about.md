@@ -27,10 +27,10 @@ and use SMT solvers to prove the verification conditions. In this respect it
 is similar to Dafny. However, SPARK contracts are executable, so that one can
 also check them dynamically if one wishes.
 
-SPARK is co-developed by [Altran](https://www.altran.com/uk/en/) and
-[AdaCore](https://www.adacore.com/). It is a commercial application, but it is
-fully open source, and a [GPL version](https://www.adacore.com/download) is
-available.
+SPARK is co-developed by [Altran](https://www.altran.com/uk/en/),
+[AdaCore](https://www.adacore.com/) and [Inria](https://www.inria.fr/). It is
+a commercial application, but it is fully open source, and a [GPL
+version](https://www.adacore.com/download) is available.
 
 
 ## About Me
