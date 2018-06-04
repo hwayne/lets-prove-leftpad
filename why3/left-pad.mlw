@@ -1,0 +1,39 @@
+module LeftPad
+	use import int.Int
+	use import int.MinMax
+	use import string.Char as C
+	use import map.Map as M
+	use import string.String as S
+	use import string.Buffer as B
+
+	(* Conversion from a buffer to an immutable string just asserts
+	   length and content equalities in postconditions.
+	   The built-in one, string.Buffer.contents, only does the length for some reason. *)
+	val buf2str (b: B.t) : string
+		ensures { S.length result = length b }
+		ensures { forall i: int. 0 <= i < length b -> M.get b.contents i = result[i] }
+
+	let leftpad (s: string) (c: char) (maxlen: int) : string
+	(* Result length is either maxlen or the original length if it was already larger. *)
+	ensures { S.length result = max (old (S.length s)) maxlen }
+	(* If the string was already long enough, the same string must be returned. *)
+	ensures { old (S.length s) >= maxlen -> result = (old s) }
+	(* Otherwise, chars [0..maxlen - original length] must be set to the padding char,
+	   and the rest must be equal to the original string. *)
+	ensures { old (S.length s) < maxlen ->
+		let padlen = maxlen - old (S.length s) in
+		(forall i: int. 0 <= i < padlen -> result[i] = c)
+		/\ (forall i: int. padlen <= i < maxlen -> result[i] = (old s)[i - padlen])
+	}
+	(* Function body in imperative style: building a buffer
+	   by first adding padding, then adding the original string. *)
+	= if S.length s >= maxlen then s else
+		let buf = B.create 0 in
+		for i = 0 to maxlen - S.length s - 1 do
+			invariant { buf.length = i }
+			invariant { forall j: int. 0 <= j < i -> M.get buf.contents j = c }
+			add_char buf c
+		done;
+		add_string buf s;
+		buf2str buf
+end
