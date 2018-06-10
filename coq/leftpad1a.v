@@ -62,7 +62,7 @@ Lemma correctness:
   forall padChar n s,
     length (leftpad padChar n s) = max n (length s) /\
     exists m,
-      let (prefix, suffix) := (cutn _ m (leftpad padChar n s)) in
+      let (prefix, suffix) := cutn _ m (leftpad padChar n s) in
       allEqual _ prefix padChar /\
       suffix = s.
 Proof.
