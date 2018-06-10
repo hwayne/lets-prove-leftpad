@@ -49,6 +49,13 @@ cutn is obviously a natural way to express the specification, which talks
 about a prefix and suffix, but additionally, since it is an inverse of the
 top function in our implementation (++), it made proving easy.
 
+In the end, we only need this one lemma about cutn (that `cutn n` is like an
+inverse to (++)) and one lemma about the relationship of `max` and
+plus/minus. Early attempts used lemmas that described slightly more
+complicated interactions between (++) and the pair of functions, firstn,
+skipn. In general, looking for inverse pairs of functions seems to be a
+valuable technique.
+
 Throughout the world of machine-assisted theorem proving, it seems that the
 cultivation of a very well-defined, recombinatory library of lemmas is
 essential to having short proofs as well as automatable proofs. The leftpad
