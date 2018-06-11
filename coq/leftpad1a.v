@@ -25,7 +25,7 @@ Proof.
   congruence.
  omega.
 Qed.
-                                        
+
 Hint Rewrite
      app_length
      repeat_length
@@ -70,10 +70,8 @@ Proof.
  split.
   autorewrite with list.
   apply minus_plus_max.
-  eexists.
- rewrite cutn_app.
- split; eauto with list.
- autorewrite with list; auto.
+ eexists.
+ rewrite cutn_app; eauto with list.
 Qed.
 
 (* This version posits a single function, cutn, which is an inverse to (++) *)
