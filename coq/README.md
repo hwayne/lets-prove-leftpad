@@ -1,4 +1,4 @@
-= leftpad: A Solution in Coq =
+# leftpad: A Solution in Coq
 
 This Coq solution to the leftpad challenge takes a functional-programming
 approach to implementing the algorithm, and proves the correctness as a
@@ -10,7 +10,7 @@ dependently-typed-programming approach, where the implementation's type
 constrains its implementation and never compiles without meeting that
 specification.
 
-== The Functional-Programming Approach ==
+## The Functional-Programming Approach
 
 A functional programmer, faced with a problem like this one, reaches quickly
 for some *combinators* that can be used to solve the problem without any loops,
@@ -28,6 +28,8 @@ However, we can't ignore "loops" forever. Some of the functions that we use in
 the implementation--and in the specification--are recursive, and proving
 things about them usually requires induction.
 
+## An Opinion
+
 Our point of view is that proving the correctness of a function like
 `leftpad`, which only makes direct use of a few standard library functions,
 should be "easy", if only
@@ -44,6 +46,8 @@ candidates for inclusion in the standard library.
 Early attempts showed a struggle between a lemma-base that was very general,
 but made proving our theorem more difficult, and one that was well-tailored
 to this problem, but full of bad candidates for standard-library inclusion.
+
+## An Elegant Solution
 
 We found that the most elegant balance was to devise a function, `cutn`, which
 acts like a kind of inverse to `(++)`: it splits the input at a given offset,
@@ -80,6 +84,8 @@ whose lemmas don't guess at possibly-unprovable goals, and thus are almost
 certain to be worth applying. Such is the case for the lemma `length_app`,
 which says that `length (a ++ b) = length a + length b`. However, if we
 included `cutn_app`, our proof script could be almost completely naive.
+
+## Afterword
 
 Throughout the world of machine-assisted theorem proving, it seems that the
 cultivation of a very well-defined, recombinatory library of lemmas is
