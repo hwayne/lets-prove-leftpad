@@ -22,8 +22,8 @@ Proof.
  unfold cutn in *.
  simpl.
  lapply (IHn xs ys).
-  congruence.
- omega.
+ - congruence.
+ - omega.
 Qed.
 
 Hint Rewrite
@@ -40,8 +40,8 @@ Lemma minus_plus_max:
 Proof.
  intros.
  destruct (le_lt_dec m n).
-  rewrite max_r; omega.
- rewrite max_l; omega.
+ - rewrite max_r; omega.
+ - rewrite max_l; omega.
 Qed.
 
 Hint Resolve minus_plus_max : arith.
@@ -71,9 +71,9 @@ Lemma leftpad_correctness:
 Proof.
  unfold leftpad, allEqual.
  split.
-  autorewrite with list arith; auto.
- eexists.
- rewrite cutn_app; eauto with list.
+ - autorewrite with list arith; auto.
+ - eexists.
+   rewrite cutn_app; eauto with list.
 Qed.
 
 (* This version posits a single function, cutn, which is an inverse to (++) *)
