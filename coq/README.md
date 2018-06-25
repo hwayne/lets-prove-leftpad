@@ -1,3 +1,23 @@
+# About Coq
+
+Coq is an interactive theorem prover, dating back to 1989, allowing us to
+state, prove, and proof-check, mathematical assertions in the spirit of
+[constructism](https://en.wikipedia.org/wiki/Constructivism_(mathematics)),
+wherein proofs are essentially functions on data in the first place; thus it is
+natural to both write functions and write proofs about those functions within
+one system. The logical system Coq is based on is the Calculus of Inductive
+Constructions (COIC), widely considered a strong and parsimonious logical
+foundation for proofs. As an added bonus, the name "Coq" is a pun on the
+French word for "chicken", and the name of one its principal inventors,
+Thierry COQuand, and a homonym of the C[alculus]O[f]C[onstructions], a simpler
+form of the COIC.
+
+Learn more about Coq itself from the [Coq homepage](https://coq.inria.fr/).
+[Adam Chlipala's textbook](http://adam.chlipala.net/cpdt/) on Coq is a good
+tutorial reference, especially when it comes to proving facts about programs
+(as opposed, say, to
+[pure mathematical theorems](https://www.microsoft.com/en-us/download/details.aspx?id=52574&from=http%3A%2F%2Fresearch.microsoft.com%2Fen-us%2Fdownloads%2F5464e7b1-bd58-4f7c-bfe1-5d3b32d42e6d%2Fdefault.aspx)).
+
 # leftpad: A Solution in Coq
 
 This Coq solution to the leftpad challenge takes a functional-programming
@@ -13,11 +33,11 @@ specification.
 ## The Functional-Programming Approach
 
 A functional programmer, faced with a problem like this one, reaches quickly
-for some *combinators* that can be used to solve the problem without any loops,
-without any loop indexes, and in a more-or-less "obviously correct" way. In
-this case, we implement leftpad as "calculate the correct number of pad
-characters, and append them on the left." Such a solution can hardly fail to
-be correct!
+for some *combinators* that can be used to solve the problem without any
+loops, without any loop indexes, and in a more-or-less "obviously correct"
+way. In this case, we implement leftpad as "calculate the correct number of
+pad characters, and append them on the left." Such a solution can hardly fail
+to be correct!
 
 ```coq
 Definition leftpad c n (s : list char) :=
@@ -44,8 +64,8 @@ lemma that's specific to this problem, and a few definitions that are good
 candidates for inclusion in the standard library.
 
 Early attempts showed a struggle between a lemma-base that was very general,
-but made proving our theorem more difficult, and one that was well-tailored
-to this problem, but full of bad candidates for standard-library inclusion.
+but made proving our theorem more difficult, and one that was well-tailored to
+this problem, but full of bad candidates for standard-library inclusion.
 
 ## An Elegant Solution
 
@@ -65,8 +85,8 @@ Lemma leftpad_correctness:
 ```
 
 The use of `cutn` is a natural way to express the specification, which talks
-about a prefix and suffix, but additionally, since it is an inverse of the
-top function in our implementation `(++)`, it made proving easy.
+about a prefix and suffix, but additionally, since it is an inverse of the top
+function in our implementation `(++)`, it made proving easy.
 
 In the end, we only need this one lemma about `cutn` (that `cutn n` is like an
 inverse to `(++)`) and one lemma about the relationship of `max` to
