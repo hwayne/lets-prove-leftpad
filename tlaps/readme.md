@@ -55,7 +55,14 @@ I came up with the invariant by starting with `Inv = TypeOK /\ Correct` and
 using TLC to check if `Inv` was, indeed, an inductive invariant. When a
 counterexample was found, I added another conjunction to tighten it up.
 
-To check the inductive invariant, I set up the following TLC model:
+To check the inductive invariant, I created the `ISpec` definition:
+
+
+```
+ISpec == Inv /\ [][Next]_vars
+```
+
+Then I ran the following TLC model:
 
 ```
 Temporal formula: ISpec
@@ -67,7 +74,9 @@ Definition Override:
     Seq(S) <- UNION {[1..m -> S] : m \in Nat}
 ```
 
+In my case, this model was small enough to run quickly and large enough to
+find all of the problems with my proposed inductive invariants.
+
 In general, checking an inductive invariant is hard because the state space can
 be enormous. Lamport describes a strategy for using pseudo-random sampling of
-the state space in [Using TLC to Check Inductive Invariance](https://lamport.azurewebsites.net/tla/inductive-invariant.pdf),
-but I didn't need it in this case.
+a larger state space in [Using TLC to Check Inductive Invariance](https://lamport.azurewebsites.net/tla/inductive-invariant.pdf).
