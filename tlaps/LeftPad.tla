@@ -19,7 +19,7 @@ variables
     pad = max(n - Len(s), 0),
     i = 0
 begin    
-a:    while i<pad do
+a:  while i<pad do
         output := <<c>> \o output;
         i := i + 1;
     end while
@@ -578,5 +578,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Dec 09 21:27:20 PST 2018 by lhochstein
+\* Last modified Sun Dec 09 21:29:28 PST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
