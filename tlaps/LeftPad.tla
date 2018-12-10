@@ -58,6 +58,17 @@ Termination == <>(pc = "Done")
 
 \* END TRANSLATION
 
+(***************************************************************************)
+(* Specification for leftpad as given in the top-level readme in this      *)
+(* repo:                                                                   *)
+(*                                                                         *)
+(* 1.  The length of the output is max(n, len(str))                        *)
+(*                                                                         *)
+(* 2.  The prefix of the output is padding characters and nothing but      *)
+(* padding characters.                                                     *)
+(*                                                                         *)
+(* 3.  The suffix of the output is the original string.                    *)
+(***************************************************************************)
 Correct == pc="Done" => /\ Len(output) = max(n, Len(s))
                         /\ \E prefix \in Seq({c}) : output = prefix \o s
                     
@@ -69,6 +80,9 @@ TypeOK == /\ c \in alphabet
           /\ i \in Nat
           /\ pc \in {"a", "Done"}
 
+(***************************************************************************)
+(* This is the inductive invariant                                         *)
+(***************************************************************************)
 Inv == /\ TypeOK
        /\ \E prefix \in Seq({c}) : output = prefix \o s
        /\ Len(output) = Len(s) \/ Len(output) <= n
@@ -564,5 +578,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Dec 09 20:52:59 PST 2018 by lhochstein
+\* Last modified Sun Dec 09 21:27:20 PST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
