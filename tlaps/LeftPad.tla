@@ -168,12 +168,7 @@ THEOREM Spec=>[]Correct
     <3>7. Correct'
         <4> USE DEF Correct
         <4>1. CASE (pc = "Done")'
-            <5>1. (Len(output) = max(n, Len(s)))'
-                BY <4>1,<2>1 DEF a,TypeOK,max,Inv
-            <5>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
-                BY <3>2
-            <5> QED
-                BY <5>1,<5>2
+            BY <4>1,<2>1,<3>2 DEF a,TypeOK,max,Inv
         <4>2. CASE ~(pc = "Done")'
             BY <4>2
         <4> QED
@@ -226,5 +221,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:24:49 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:25:35 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
