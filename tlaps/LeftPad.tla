@@ -168,12 +168,7 @@ THEOREM Spec=>[]Correct
             <5>3. i < max(n - Len(s), 0)
                 BY <4>2
             <5>4. i < n - Len(s)
-                <6>1. i < IF n - Len(s)>0 THEN n - Len(s) ELSE 0
-                    BY <5>3 DEF max
-                <6>2. n - Len(s) > 0
-                    BY <6>1 DEF Inv,TypeOK
-                <6>3. QED
-                    BY <6>1, <6>2
+                BY <5>3 DEF max,Inv,TypeOK
             <5>5. Len(s) + i < n
                 BY <5>4 DEF TypeOK
             <5>6. Len(output) < n
@@ -446,5 +441,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:48:03 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:48:51 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
