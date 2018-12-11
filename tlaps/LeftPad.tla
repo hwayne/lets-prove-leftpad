@@ -132,11 +132,7 @@ THEOREM Spec=>[]Correct
       <4>2. (n \in Nat)'
         BY <2>1 DEF a,TypeOK
       <4>3. (s \in Seq(alphabet))'
-        <5>1. UNCHANGED s
-            BY <2>1 DEF a
-        <5>2. s \in Seq(alphabet)
-            BY DEF TypeOK
-        <5>3. QED BY <5>1, <5>2
+        BY <2>1 DEF a,TypeOK
       <4>4. (output \in Seq(alphabet))'
         <5>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
@@ -509,5 +505,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:05:45 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:06:10 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
