@@ -171,15 +171,8 @@ THEOREM Spec=>[]Correct
                 <6>1. i < IF n - Len(s)>0 THEN n - Len(s) ELSE 0
                     BY <5>3 DEF max
                 <6>2. n - Len(s) > 0
-                    <7>1. SUFFICES ASSUME ~(n-Len(s) > 0) PROVE FALSE
-                        OBVIOUS
-                    <7>2. i<0
-                        BY <6>1, <7>1
-                    <7>3. i >= 0
-                        BY DEF Inv
-                    <7>99. QED
-                        BY <7>2, <7>3 DEF TypeOK
-                <6>99. QED
+                    BY <6>1 DEF Inv,TypeOK
+                <6>3. QED
                     BY <6>1, <6>2
             <5>5. Len(s) + i < n
                 BY <5>4 DEF TypeOK
@@ -453,5 +446,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:46:29 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:48:03 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
