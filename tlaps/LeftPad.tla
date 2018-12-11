@@ -166,13 +166,7 @@ THEOREM Spec=>[]Correct
     <3>6. (pad = max(n - Len(s), 0))'
         BY <2>1 DEF a,TypeOK
     <3>7. Correct'
-        <4> USE DEF Correct
-        <4>1. CASE (pc = "Done")'
-            BY <4>1,<2>1,<3>2 DEF a,TypeOK,max,Inv
-        <4>2. CASE ~(pc = "Done")'
-            BY <4>2
-        <4> QED
-            BY <4>1,<4>2
+        BY <2>1,<3>2 DEF a,TypeOK,max,Inv,Correct
     <3>8. QED
       BY <3>1, <3>2, <3>3, <3>4, <3>5, <3>6, <3>7 DEF Inv
   <2>2. CASE pc = "Done" /\ UNCHANGED vars
@@ -221,5 +215,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:25:35 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:26:08 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
