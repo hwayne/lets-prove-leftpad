@@ -174,14 +174,7 @@ THEOREM Spec=>[]Correct
             <5>5. CASE pad = n - Len(s)
                 BY <5>1,<5>2 DEF Inv,TypeOK,Next,a,vars
             <5>6. CASE pad = 0
-                <6>1. i=0
-                    BY <5>6 DEF Inv,TypeOK,max
-                <6>2. Len(output) = Len(s)
-                    BY <6>1 DEF Inv
-                <6>3. (Len(output) = Len(s))'
-                    BY <6>2,<5>1,<5>2
-                <6>4. QED
-                    BY <6>3
+                BY <5>1,<5>2,<5>6 DEF Inv,TypeOK,max
             <5>7. QED
                 BY <5>3,<5>4,<5>5,<5>6 DEF max
         <4>4. QED
@@ -359,5 +352,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:11:06 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:11:38 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
