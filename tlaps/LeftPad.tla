@@ -160,12 +160,7 @@ THEOREM Spec=>[]Correct
     <3>3. (Len(output) = Len(s) \/ Len(output) <= n)'
         BY <2>1 DEF a,Inv,TypeOK,Next,vars,max
     <3>4. (Len(output) = Len(s) + i)'
-        <4>1. CASE i<pad
-            BY <2>1,<4>1 DEF Inv,a,TypeOK
-        <4>2. CASE ~(i<pad)
-            BY <2>1,<4>2 DEF a,Inv
-        <4>3. QED
-            BY <4>1,<4>2
+        BY <2>1 DEF Inv,a,TypeOK
     <3>5. (i>=0)'
         BY <2>1 DEF a, TypeOK
     <3>6. (pad = max(n - Len(s), 0))'
@@ -307,5 +302,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:15:02 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:15:35 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
