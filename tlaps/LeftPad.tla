@@ -488,21 +488,10 @@ THEOREM Spec=>[]Correct
                     <7> QED
                         BY <7>4,<6>7
                 <6>9. CASE ~(pad=0)
-                    <7> USE DEF TypeOK
-                    <7>1. pad>0
-                        BY <6>9
-                    <7>2. pad = n - Len(s)
-                        BY <7>1 DEF Inv,max
-                    <7>3. n > Len(s)
-                        BY <7>1,<7>2
-                    <7>4. Len(output) = n
-                            BY <2>1,<4>1,<7>1,<7>2,<7>3 DEF Inv,a,max
-                    <7>5. Len(output) = max(n, Len(s))
-                        BY <7>3,<7>4 DEF max
-                    <7> QED
-                        BY <7>5,<6>7
+                    BY <2>1,<4>1 DEF Inv,a,max,TypeOK
                 <6> QED
                     BY <6>8,<6>9
+
             <5>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
                 BY <3>2
             <5> QED
@@ -559,5 +548,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 11:54:18 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 11:55:40 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
