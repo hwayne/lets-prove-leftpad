@@ -100,22 +100,7 @@ THEOREM Spec=>[]Correct
     OBVIOUS
   <2> USE DEF Init
   <2>1. TypeOK
-    <3>1. c \in alphabet
-        OBVIOUS
-    <3>2. n \in Nat
-        OBVIOUS
-    <3>3. s \in Seq(alphabet)
-        OBVIOUS
-    <3>4. output \in Seq(alphabet)
-        OBVIOUS
-    <3>5. pad \in Nat
-        BY DEF max
-    <3>6. i \in Nat
-        OBVIOUS
-    <3>7. pc \in {"a", "Done"}
-        OBVIOUS
-    <3>8. QED
-      BY <3>1, <3>2, <3>3, <3>4, <3>5, <3>6, <3>7 DEF TypeOK
+    BY DEF TypeOK,max
   <2>2. \E prefix \in Seq({c}) : output = prefix \o s
     <3>1. output = << >> \o s
         OBVIOUS
@@ -532,5 +517,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 11:59:23 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:02:19 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
