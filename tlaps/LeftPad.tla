@@ -464,8 +464,9 @@ THEOREM Spec=>[]Correct
                             BY <8>1,<8>2 DEF TypeOK
 
                     <7>4. Len(output) = max(n, Len(s))
-
                         <8>1. CASE Len(s)>n 
+                            BY <7>3,<8>1 DEF max,TypeOK
+                            (*
                              <9>1. max(n, Len(s)) = Len(s)
                                 BY <8>1 DEF max,TypeOK
                              <9>2. Len(output) = Len(s)
@@ -474,6 +475,7 @@ THEOREM Spec=>[]Correct
                                 BY <9>1,<9>2
                              <9>4. QED
                                 BY <9>3
+                                *)
                         <8>2. CASE Len(s)=n 
                              <9>1. max(n, Len(s)) = Len(s)
                                 BY <8>2 DEF max,TypeOK
@@ -548,5 +550,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 11:55:40 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 11:58:30 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
