@@ -164,14 +164,7 @@ THEOREM Spec=>[]Correct
     <3>5. (i>=0)'
         BY <2>1 DEF a, TypeOK
     <3>6. (pad = max(n - Len(s), 0))'
-        <4>1. pad'=pad
-            BY <2>1 DEF a
-        <4>2. n'=n
-            BY <2>1 DEF a
-        <4>3. s'=s
-            BY <2>1 DEF a
-        <4> QED
-            BY <4>1,<4>2,<4>3 DEF TypeOK
+        BY <2>1 DEF a,TypeOK
     <3>7. Correct'
         <4> USE DEF Correct
         <4>1. CASE (pc = "Done")'
@@ -302,5 +295,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:15:35 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:16:02 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
