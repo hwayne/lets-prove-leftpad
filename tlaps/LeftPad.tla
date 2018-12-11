@@ -163,20 +163,7 @@ THEOREM Spec=>[]Correct
         <4>2. CASE i<pad
             BY <2>1,<4>1,<4>2 DEF Inv,TypeOK,a,Next,vars,max
         <4>3. CASE ~(i<pad)
-            <5>1. output' = output
-                BY <4>3 DEF Next,a, vars
-            <5>2. s' = s
-                BY <2>1 DEF a
-            <5>3. i>=pad
-                BY <4>3 DEF TypeOK
-            <5>4. pad = max(n - Len(s), 0)
-                OBVIOUS
-            <5>5. CASE pad = n - Len(s)
-                BY <5>1,<5>2 DEF Inv,TypeOK,Next,a,vars
-            <5>6. CASE pad = 0
-                BY <5>1,<5>2,<5>6 DEF Inv,TypeOK,max
-            <5>7. QED
-                BY <5>3,<5>4,<5>5,<5>6 DEF max
+            BY <2>1,<4>3 DEF Next,a,vars,TypeOK,Inv
         <4>4. QED
             BY <4>1,<4>2,<4>3
     <3>4. (Len(output) = Len(s) + i)'
@@ -352,5 +339,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:11:38 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:12:27 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
