@@ -161,21 +161,7 @@ THEOREM Spec=>[]Correct
         BY <2>1 DEF a,Inv,TypeOK,Next,vars,max
     <3>4. (Len(output) = Len(s) + i)'
         <4>1. CASE i<pad
-            <5>1. Len(output) = Len(s) + i
-                BY DEF Inv
-            <5>2. Len(output') = Len(output) + 1
-                BY <2>1,<4>1 DEF a,TypeOK
-            <5>3. s' = s
-                BY <2>1 DEF a
-            <5>4. i' = i + 1
-                BY <2>1,<4>1 DEF a
-            <5>5. Len(output') = Len(s) + i + 1
-                BY <5>1,<5>2
-            <5>6. Len(output') = Len(s) + i'
-                BY <5>4,<5>5
-            <5>7. (Len(output) = Len(s) + i) '
-                BY <5>3,<5>6
-            <5> QED BY <5>7
+            BY <2>1,<4>1 DEF Inv,a,TypeOK
         <4>2. CASE ~(i<pad)
             <5>1. s'=s
                 BY <2>1 DEF a
@@ -332,5 +318,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:13:05 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:14:27 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
