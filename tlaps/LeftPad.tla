@@ -462,29 +462,11 @@ THEOREM Spec=>[]Correct
                                 BY <9>2,<9>3,<9>4
                         <8> QED
                             BY <8>1,<8>2 DEF TypeOK
-
                     <7>4. Len(output) = max(n, Len(s))
                         <8>1. CASE Len(s)>n 
                             BY <7>3,<8>1 DEF max,TypeOK
-                            (*
-                             <9>1. max(n, Len(s)) = Len(s)
-                                BY <8>1 DEF max,TypeOK
-                             <9>2. Len(output) = Len(s)
-                                BY <7>3
-                             <9>3. Len(output) = max(n, Len(s))
-                                BY <9>1,<9>2
-                             <9>4. QED
-                                BY <9>3
-                                *)
                         <8>2. CASE Len(s)=n 
-                             <9>1. max(n, Len(s)) = Len(s)
-                                BY <8>2 DEF max,TypeOK
-                             <9>2. Len(output) = Len(s)
-                                BY <7>3
-                             <9>3. Len(output) = max(n, Len(s))
-                                BY <9>1,<9>2
-                             <9>4. QED
-                                BY <9>3
+                            BY <8>2 DEF max,TypeOK
                         <8> QED
                             BY <7>2,<8>1,<8>2 DEF TypeOK
                     <7> QED
@@ -550,5 +532,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 11:58:30 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 11:59:23 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
