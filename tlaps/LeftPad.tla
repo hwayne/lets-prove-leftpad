@@ -172,10 +172,7 @@ THEOREM Spec=>[]Correct
             <5>5. Len(s) + i < n
                 BY <5>4 DEF TypeOK
             <5>6. Len(output) < n
-                <6>1. Len(output) = Len(s) + i
-                    BY DEF Inv
-                <6>2. QED
-                    BY <5>5, <6>1
+                BY <5>5 DEF Inv
             <5>7. Len(output') - 1 = Len(output)
                 BY <5>2 DEF TypeOK
             <5>8. Len(output') -1 < n
@@ -441,5 +438,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:48:51 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:49:34 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
