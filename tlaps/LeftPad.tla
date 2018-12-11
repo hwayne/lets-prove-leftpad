@@ -199,12 +199,7 @@ THEOREM Spec=>[]Correct
                     <7>2. Len(s) >= n
                         BY <7>1 DEF TypeOK
                     <7>3. Len(output) = Len(s)
-                        <8>1. Len(output) = Len(s) + i
-                            BY DEF Inv
-                        <8>2. i = 0
-                            BY <7>1 DEF TypeOK,Inv
-                        <8> QED
-                            BY <8>1,<8>2 DEF TypeOK
+                        BY <7>1 DEF TypeOK,Inv
                     <7>4. Len(output) = max(n, Len(s))
                         <8>1. CASE Len(s)>n 
                             BY <7>3,<8>1 DEF max,TypeOK
@@ -275,5 +270,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:17:12 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:17:35 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
