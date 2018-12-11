@@ -182,10 +182,7 @@ THEOREM Spec=>[]Correct
             <5>10. Len(output') <= n
                 BY <5>9 DEF TypeOK
             <5>11. Len(output') <= n'
-                <6>1 n'=n
-                    BY <2>1 DEF a,Next,vars
-                <6>2 QED
-                    BY <5>10,<6>1
+                BY <2>1,<5>10 DEF a,Next,vars
             <5>12. (Len(output) <= n)'
                 BY <5>11
             <5>13. (Len(output) = Len(s))' \/ (Len(output) <= n)'
@@ -438,5 +435,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:49:34 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:50:09 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
