@@ -173,12 +173,7 @@ THEOREM Spec=>[]Correct
                 OBVIOUS
             <5>5. CASE pad = n - Len(s)
                 <6>1. CASE i=0
-                    <7>1. Len(output) = Len(s)
-                        BY <6>1 DEF Inv,TypeOK
-                    <7>2. (Len(output) = Len(s))'
-                        BY <5>1,<5>2,<7>1
-                    <7>3. QED
-                        BY <7>2
+                    BY <5>1,<5>2,<6>1 DEF Inv,TypeOK
                 <6>2. CASE ~(i=0)
                     <7>1. i/=0
                         BY <6>2 DEF TypeOK
@@ -408,5 +403,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:51:31 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:52:22 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
