@@ -172,12 +172,7 @@ THEOREM Spec=>[]Correct
             <5>4. pad = max(n - Len(s), 0)
                 OBVIOUS
             <5>5. CASE pad = n - Len(s)
-                <6>1. CASE i=0
-                    BY <5>1,<5>2,<6>1 DEF Inv,TypeOK
-                <6>2. CASE ~(i=0)
-                    BY <5>1,<6>2 DEF TypeOK,Inv,Next,a,vars
-                <6>3. QED
-                    BY <6>1,<6>2
+                BY <5>1,<5>2 DEF Inv,TypeOK,Next,a,vars
             <5>6. CASE pad = 0
                 <6>1. i=0
                     <7> SUFFICES ASSUME ~(i=0)
@@ -186,21 +181,7 @@ THEOREM Spec=>[]Correct
                     <7>1. i>0
                         BY DEF Inv,TypeOK
                     <7>2. Len(s)>=n
-                        <8> SUFFICES ASSUME ~(Len(s)>=n)
-                                     PROVE FALSE
-                            OBVIOUS
-                        <8>0. Len(s)<n
-                            BY DEF TypeOK
-                        <8>1. 0 = max(n-Len(s),0)
-                            BY <5>6 DEF Inv
-                        <8>2. 0 = IF n-Len(s)>0 THEN n-Len(s) ELSE 0
-                            BY <8>1 DEF max
-                        <8>3. n - Len(s)>0
-                            BY DEF TypeOK
-                        <8>4. n-Len(s) = 0
-                            BY <8>2,<8>3
-                        <8>5. QED
-                            BY <8>3,<8>4
+                        BY <5>6 DEF TypeOK,Inv,max
                     <7>3. Len(output) > Len(s)
                         BY DEF Inv,TypeOK
                     <7>4. Len(output) <= n
@@ -392,5 +373,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:53:08 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:10:34 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
