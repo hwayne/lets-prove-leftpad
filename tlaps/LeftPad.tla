@@ -172,23 +172,7 @@ THEOREM Spec=>[]Correct
   <2>2. CASE pc = "Done" /\ UNCHANGED vars
       BY <2>2 DEF vars,TypeOK,Correct,Inv
   <2>3. CASE UNCHANGED vars
-    <3> USE DEF vars
-    <3>1. TypeOK'
-        BY <2>3 DEF TypeOK
-    <3>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
-        BY <2>3
-    <3>3. (Len(output) = Len(s) \/ Len(output) <= n)'
-        BY <2>3
-    <3>4. (Len(output) = Len(s) + i)'
-        BY <2>3
-    <3>5. (pad = max(n - Len(s), 0))'
-        BY <2>3
-    <3>6. (i>=0)'
-        BY <2>3
-    <3>7. Correct'
-        BY <2>3 DEF Correct
-    <3>8. QED
-      BY <3>1, <3>2, <3>3, <3>4, <3>5, <3>6, <3>7 DEF Inv
+      BY <2>3 DEF vars,TypeOK,Correct,Inv
   <2>4. QED
     BY <2>1, <2>2, <2>3 DEF Next
 <1>3. Inv => Correct
@@ -199,5 +183,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:27:11 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:27:49 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
