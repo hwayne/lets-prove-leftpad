@@ -184,26 +184,7 @@ THEOREM Spec=>[]Correct
                 <6>7. (Len(output) = max(n, Len(s)))' = (Len(output) = max(n, Len(s)))
                     BY <6>3,<6>4,<6>6
                 <6>8. CASE pad=0
-                    <7>1. n - Len(s) <= 0
-                        <8> SUFFICES ASSUME ~(n - Len(s) <= 0)
-                                     PROVE FALSE
-                            OBVIOUS
-                        <8>1. n - Len(s) > 0
-                            BY DEF TypeOK
-                        <8>2 pad = n - Len(s)
-                            BY <8>1 DEF max,Inv
-                        <8>3. pad > 0
-                            BY <8>2
-                        <8> QED
-                            BY <6>8,<8>3
-                    <7>2. Len(s) >= n
-                        BY <7>1 DEF TypeOK
-                    <7>3. Len(output) = Len(s)
-                        BY <7>1 DEF TypeOK,Inv
-                    <7>4. Len(output) = max(n, Len(s))
-                        BY <7>2,<7>3 DEF max,TypeOK
-                    <7> QED
-                        BY <7>4,<6>7
+                    BY <6>7,<6>8 DEF TypeOK,max,Inv
                 <6>9. CASE ~(pad=0)
                     BY <2>1,<4>1 DEF Inv,a,max,TypeOK
                 <6> QED
@@ -265,5 +246,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:18:37 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:19:29 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
