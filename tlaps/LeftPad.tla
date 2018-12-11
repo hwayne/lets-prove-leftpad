@@ -127,21 +127,7 @@ THEOREM Spec=>[]Correct
   <2> USE DEF Inv
   <2>1. CASE a
     <3>1. TypeOK'
-      <4>1. (c \in alphabet)'
         BY <2>1 DEF a,TypeOK
-      <4>2. (n \in Nat)'
-        BY <2>1 DEF a,TypeOK
-      <4>3. (s \in Seq(alphabet))'
-        BY <2>1 DEF a,TypeOK
-      <4>4. (output \in Seq(alphabet))'
-        BY <2>1 DEF a,TypeOK
-      <4>5. (pad \in Nat)'
-        BY <2>1 DEF a,TypeOK
-      <4>6. (i \in Nat)'
-      <4>7. (pc \in {"a", "Done"})'
-        BY <2>1 DEF a
-      <4>8. QED
-        BY <4>1, <4>2, <4>3, <4>4, <4>5, <4>6, <4>7 DEF TypeOK
     <3>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
         <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
@@ -474,5 +460,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:42:07 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:42:44 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
