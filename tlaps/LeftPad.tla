@@ -175,21 +175,7 @@ THEOREM Spec=>[]Correct
                 BY <5>1,<5>2 DEF Inv,TypeOK,Next,a,vars
             <5>6. CASE pad = 0
                 <6>1. i=0
-                    <7> SUFFICES ASSUME ~(i=0)
-                                 PROVE FALSE
-                        OBVIOUS
-                    <7>1. i>0
-                        BY DEF Inv,TypeOK
-                    <7>2. Len(s)>=n
-                        BY <5>6 DEF TypeOK,Inv,max
-                    <7>3. Len(output) > Len(s)
-                        BY DEF Inv,TypeOK
-                    <7>4. Len(output) <= n
-                        BY <7>3 DEF Inv
-                    <7>5. Len(output) <= Len(s)
-                        BY <7>2,<7>4 DEF TypeOK
-                    <7> QED
-                        BY <7>3,<7>5 DEF TypeOK
+                    BY <5>6 DEF Inv,TypeOK,max
                 <6>2. Len(output) = Len(s)
                     BY <6>1 DEF Inv
                 <6>3. (Len(output) = Len(s))'
@@ -373,5 +359,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:10:34 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:11:06 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
