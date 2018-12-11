@@ -161,34 +161,7 @@ THEOREM Spec=>[]Correct
         <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
         <4>2. CASE i<pad
-            <5>1. output' = <<c>> \o output
-                BY <4>1,<4>2
-            <5>2. Len(output') = 1 + Len(output) 
-                BY <5>1 DEF TypeOK
-            <5>3. i < max(n - Len(s), 0)
-                BY <4>2
-            <5>4. i < n - Len(s)
-                BY <5>3 DEF max,Inv,TypeOK
-            <5>5. Len(s) + i < n
-                BY <5>4 DEF TypeOK
-            <5>6. Len(output) < n
-                BY <5>5 DEF Inv
-            <5>7. Len(output') - 1 = Len(output)
-                BY <5>2 DEF TypeOK
-            <5>8. Len(output') -1 < n
-                BY <5>6,<5>7
-            <5>9. Len(output') < n + 1
-                BY <5>8 DEF TypeOK
-            <5>10. Len(output') <= n
-                BY <5>9 DEF TypeOK
-            <5>11. Len(output') <= n'
-                BY <2>1,<5>10 DEF a,Next,vars
-            <5>12. (Len(output) <= n)'
-                BY <5>11
-            <5>13. (Len(output) = Len(s))' \/ (Len(output) <= n)'
-                BY <5>12
-            <5>14. QED
-                BY <5>13
+            BY <2>1,<4>1,<4>2 DEF Inv,TypeOK,a,Next,vars,max
         <4>3. CASE ~(i<pad)
             <5>1. output' = output
                 BY <4>3 DEF Next,a, vars
@@ -435,5 +408,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:50:09 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:51:31 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
