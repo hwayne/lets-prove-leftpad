@@ -158,14 +158,7 @@ THEOREM Spec=>[]Correct
             BY <2>1,<4>1,<4>3 DEF a
         <4>4. QED BY <4>1,<4>2,<4>3
     <3>3. (Len(output) = Len(s) \/ Len(output) <= n)'
-        <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
-            BY <2>1 DEF a
-        <4>2. CASE i<pad
-            BY <2>1,<4>1,<4>2 DEF Inv,TypeOK,a,Next,vars,max
-        <4>3. CASE ~(i<pad)
-            BY <2>1,<4>3 DEF Next,a,vars,TypeOK,Inv
-        <4>4. QED
-            BY <4>1,<4>2,<4>3
+        BY <2>1 DEF a,Inv,TypeOK,Next,vars,max
     <3>4. (Len(output) = Len(s) + i)'
         <4>1. CASE i<pad
             <5>1. Len(output) = Len(s) + i
@@ -339,5 +332,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:12:27 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 13:13:05 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
