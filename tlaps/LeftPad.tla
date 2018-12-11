@@ -138,19 +138,6 @@ THEOREM Spec=>[]Correct
       <4>5. (pad \in Nat)'
         BY <2>1 DEF a,TypeOK
       <4>6. (i \in Nat)'
-        <5>1. IF i<pad THEN i'=i+1 ELSE UNCHANGED i
-            BY <2>1 DEF a
-        <5>2. CASE i<pad
-            <6>1. i'=i+1
-                BY <5>1,<5>2
-            <6>2. QED BY <6>1
-        <5>3 CASE ~(i<pad)
-            <6>1. i'=i
-                BY <5>1,<5>3
-            <6>2. i \in Nat
-                BY DEF TypeOK
-            <6>3. QED BY <6>1, <6>2
-        <5>4 QED BY <5>1, <5>2, <5>3
       <4>7. (pc \in {"a", "Done"})'
         BY <2>1 DEF a
       <4>8. QED
@@ -487,5 +474,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:11:19 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:42:07 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
