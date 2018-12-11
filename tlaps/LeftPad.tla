@@ -496,26 +496,7 @@ THEOREM Spec=>[]Correct
                     <7>3. n > Len(s)
                         BY <7>1,<7>2
                     <7>4. Len(output) = n
-                        <8>a. i >= pad
-                            BY <2>1, <4>1 DEF a
-                        <8>b. pad = n - Len(s)
-                            BY <7>2
-                        <8>c. i >= n - Len(s)
-                            BY <8>a,<8>b
-                        <8>d. Len(output) = Len(s) + i
-                            BY DEF Inv
-                        <8>e. Len(s) + i >= n
-                            BY <8>c
-                        <8>f. Len(output) >= n
-                            BY <8>d,<8>e
-                        <8>g. Len(output) = Len(s) \/ Len(output) <= n
-                            BY DEF Inv
-                        <8>h. i>0
-                            BY <7>1,<8>a
-                        <8>i. Len(output) <= n
-                            BY <8>h,<8>d,<8>g
-                        <8> QED
-                            BY <8>f,<8>i
+                            BY <2>1,<4>1,<7>1,<7>2,<7>3 DEF Inv,a,max
                     <7>5. Len(output) = max(n, Len(s))
                         BY <7>3,<7>4 DEF max
                     <7> QED
@@ -578,5 +559,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Sun Dec 09 21:29:28 PST 2018 by lhochstein
+\* Last modified Tue Dec 11 11:54:18 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
