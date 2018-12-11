@@ -134,6 +134,8 @@ THEOREM Spec=>[]Correct
       <4>3. (s \in Seq(alphabet))'
         BY <2>1 DEF a,TypeOK
       <4>4. (output \in Seq(alphabet))'
+        BY <2>1 DEF a,TypeOK
+      (*
         <5>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
         <5>2. CASE i<pad
@@ -141,6 +143,7 @@ THEOREM Spec=>[]Correct
         <5>3. CASE ~(i<pad)
             BY <5>1,<5>3 DEF TypeOK
         <5>4. QED BY <5>1, <5>2, <5>3
+        *)
       <4>5. (pad \in Nat)'
         <5>1. UNCHANGED pad
             BY <2>1 DEF a
@@ -495,5 +498,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:07:37 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:10:29 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
