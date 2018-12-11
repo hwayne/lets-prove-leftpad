@@ -137,13 +137,7 @@ THEOREM Spec=>[]Correct
         <5>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
         <5>2. CASE i<pad
-            <6>1. output' = <<c>> \o output
-                BY <5>1, <5>2
-            <6>2. output \in Seq(alphabet)
-                BY DEF TypeOK
-            <6>3. c \in alphabet
-                BY DEF TypeOK
-            <6>4. QED BY <6>1, <6>2, <6>3
+            BY <5>1,<5>2 DEF TypeOK
         <5>3. CASE ~(i<pad)
             <6>1. output' = output
                 BY <5>1, <5>3
@@ -505,5 +499,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 12:06:10 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 12:07:05 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
