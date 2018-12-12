@@ -126,9 +126,9 @@ THEOREM Spec=>[]Correct
     OBVIOUS
   <2> USE DEF Inv
   <2>1. CASE a
-    <3> USE DEF a
+    <3> USE DEF a,TypeOK
     <3>1. TypeOK'
-        BY <2>1 DEF TypeOK
+        BY <2>1
     <3>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
         <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1
@@ -143,15 +143,15 @@ THEOREM Spec=>[]Correct
             BY <2>1,<4>1,<4>3
         <4>4. QED BY <4>1,<4>2,<4>3
     <3>3. (Len(output) = Len(s) \/ Len(output) <= n)'
-        BY <2>1 DEF Inv,TypeOK,Next,vars,max
+        BY <2>1 DEF Inv,Next,vars,max
     <3>4. (Len(output) = Len(s) + i)'
-        BY <2>1 DEF Inv,TypeOK
+        BY <2>1 DEF Inv
     <3>5. (i>=0)'
-        BY <2>1 DEF TypeOK
+        BY <2>1
     <3>6. (pad = max(n - Len(s), 0))'
-        BY <2>1 DEF TypeOK
+        BY <2>1
     <3>7. Correct'
-        BY <2>1,<3>2 DEF TypeOK,max,Inv,Correct
+        BY <2>1,<3>2 DEF max,Inv,Correct
     <3>8. QED
       BY <3>1, <3>2, <3>3, <3>4, <3>5, <3>6, <3>7 DEF Inv
   <2>2. CASE pc = "Done" /\ UNCHANGED vars
@@ -168,5 +168,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 19:13:45 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 19:14:30 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
