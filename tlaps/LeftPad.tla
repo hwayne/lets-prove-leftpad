@@ -107,18 +107,8 @@ THEOREM Spec=>[]Correct
     <3>2. << >> \in Seq({c})
         BY DEF Seq
     <3>3. QED BY <3>1, <3>2
-  <2>3. Len(output) = Len(s) \/ Len(output) <= n
-    OBVIOUS
-  <2>4. Len(output) = Len(s) + i
-    OBVIOUS
-  <2>5. pad = max(n - Len(s), 0)
-    OBVIOUS
-  <2>6. i>=0
-    OBVIOUS
-  <2>7. Correct
-    BY DEF Correct
-  <2>8. QED
-    BY <2>1, <2>2, <2>3, <2>4, <2>5, <2>6, <2>7 DEF Inv
+  <2>3. QED
+    BY <2>1, <2>2 DEF Inv,Correct
 <1>2. Inv /\ [Next]_vars => Inv'
   <2> SUFFICES ASSUME Inv,
                       [Next]_vars
@@ -168,5 +158,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 19:14:30 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 19:16:36 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
