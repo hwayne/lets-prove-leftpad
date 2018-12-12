@@ -132,28 +132,12 @@ THEOREM Spec=>[]Correct
         <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
             BY <2>1 DEF a
         <4>2. CASE i<pad
-            <5>1. \E prefix \in Seq({c}) : output = prefix \o s
+            <5>1. \E prefix \in Seq({c}) : <<c>> \o output = <<c>> \o prefix \o s
                 OBVIOUS
-            <5>2. \E prefix \in Seq({c}) : <<c>> \o output = <<c>> \o prefix \o s
+            <5>2. \A p \in Seq({c}) : <<c>> \o p \in Seq({c})
                 OBVIOUS
-            <5>3. \A p \in Seq({c}) : <<c>> \o p \in Seq({c})
-                OBVIOUS
-            <5>4. \E prefix \in Seq({c}) : <<c>> \o output = prefix \o s
-                BY <5>2,<5>3
-            <5>5. output' = <<c>> \o output
-                BY <4>1,<4>2
-            <5>6. \E prefix \in Seq({c}) : output' = prefix \o s
-                BY <5>4,<5>5
-            <5>7. s' = s
-                BY <2>1 DEF a
-            <5>8. \E prefix \in Seq({c}) : output' = prefix \o s'
-                BY <5>6,<5>7
-            <5>9. c' = c
-                BY <2>1 DEF a
-            <5>10. \E prefix \in Seq({c'}) : (output = prefix \o s)'
-                BY <5>8,<5>9
-            <5>11. QED
-                BY <5>10
+            <5>3. QED
+                BY <2>1,<4>1,<4>2,<5>1,<5>2 DEF a
         <4>3. CASE ~(i<pad)
             BY <2>1,<4>1,<4>3 DEF a
         <4>4. QED BY <4>1,<4>2,<4>3
@@ -183,5 +167,5 @@ THEOREM Spec=>[]Correct
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 13:27:49 EST 2018 by lhochstein
+\* Last modified Tue Dec 11 19:10:14 EST 2018 by lhochstein
 \* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
