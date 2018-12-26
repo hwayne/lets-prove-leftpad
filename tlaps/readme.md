@@ -193,7 +193,7 @@ behavior, *i* will be decremented to -1.
 The above diagram is a Venn diagram of states. A bubble represents a state in TLA+. A bubble is
 colored gray if it is an initial state in the specification (i.e. if the `Init`
 predicate is true of that state). An arrow
-represents a step, where the *Next* action is true for the pair of states
+represents a step, where the `Next` action is true for the pair of states
 associated with the arrow.
 
 The inner region shows all of the states that are in all allowed behaviors of
