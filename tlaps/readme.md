@@ -2,8 +2,8 @@
 
 ## About TLAPS
 
-THe TLA+ Proof System ([TLAPS]) is a mechanical proof checker for proofs written
-in TLA+.
+THe TLA+ Proof System ([TLAPS]) is a mechanical proof checker for checking
+a [structured proof] written in TLA+.
 
 [TLAPS]: https://tla.msr-inria.inria.fr/tlaps/content/Home.html
 
@@ -116,7 +116,8 @@ value of the `pc` variable, and for each of those, we prove `Inv'` for each of
 the conjuncts of the inductive invariant.
 
 Leftpad is simple enough that `pc` can only take on two values: `{"a",
-"Done"}`, so our case analysis is pretty simple. Thet trickier one is `<2>1. CASE a`.
+"Done"}`, so our case analysis is pretty simple. Thet trickier one is the case
+where `pc="a"`, that's done in `<2>1`.
 
 TLAPS needed the most help for proving `<3>2. (\E prefix \in Seq({c}) : output = prefix \o s)'`,
 so that one is broken up into the most steps. The case where `i<pad` is where
