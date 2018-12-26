@@ -240,8 +240,11 @@ Definition Override:
 ```
 
 In my case, this model was small enough to run quickly and large enough to
-find all of the problems with my proposed inductive invariants.
+find all of the problems with my proposed inductive invariants. I know
+for certain that my invariant is an inductive one because I was able to write
+the proof.
 
-In general, checking an inductive invariant is hard because the state space can
-be enormous. Lamport describes a strategy for using pseudo-random sampling of
-a larger state space in [Using TLC to Check Inductive Invariance](https://lamport.azurewebsites.net/tla/inductive-invariant.pdf).
+In general, checking that an invariant is inductive with TLC is hard because
+the state space can be enormous. Lamport describes a strategy for using
+pseudo-random sampling of a larger state space in [Using TLC to Check Inductive
+Invariance](https://lamport.azurewebsites.net/tla/inductive-invariant.pdf).
