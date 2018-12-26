@@ -178,7 +178,7 @@ end algorithm
 ```
 
 It should be obvious that `i≥0` is an invariant of this specification. Let's
-assume that this is our invariant *Inv*. Now, consider the following program state:
+assume that this is our invariant `Inv`. Now, consider the following program state:
 
 ```
 pc="Inner"
