@@ -7,6 +7,11 @@ a [structured proof] written in TLA+.
 
 [TLAPS]: https://tla.msr-inria.inria.fr/tlaps/content/Home.html
 
+## About Me
+
+My name is [Lorin Hochstein](https://twitter.com/lhochstein), and I'm a senior software
+engineer at Netflix.
+
 ## Leftpad in PlusCal
 
 Here's the leftpad algorithm in [PlusCal] syntax.
