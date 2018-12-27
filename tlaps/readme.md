@@ -230,15 +230,13 @@ associated with the arrow.
 The inner region shows all of the states that are in all allowed behaviors of
 the specification.
 
-The outer region represents an invariant: it contains all states where the
-invariant holds. The middle region represents an inductive invariant: it
-contains all states where an inductive invariant holds.
+The outer region represents an invariant: it contains all states where the invariant holds. The middle region represents an inductive invariant: it contains all states where an inductive invariant holds.  
 
 Note how there is an arrow from a state where the invariant holds to a state
 where the invariant doesn't hold. That's because invariants are not inductive
 in general.
 
-In contrast, for states where the indutive invariant holds, all arrows that
+In contrast, for states where the inductive invariant holds, all arrows that
 start in those states terminate in states where the inductive invariant holds.
 
 ## Finding an inductive invariant
