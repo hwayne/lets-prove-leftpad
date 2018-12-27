@@ -110,6 +110,37 @@ correctness condition for leftpad.
 If you're familiar with TLA+ syntax, you should be able to read the proof
 without too much trouble.
 
+TLAPS is a declarative system. You just tell it "this statement can be proved
+by using these other statements", and then TLAPS tries to determine whether
+that's true. You often need to help TLAPS out by breaking statements into
+smaller steps that TLAPS can handle
+
+For example, consider this part of the proof, where we're checking that the
+initial condition satisfies the inductive invariant:
+
+```
+<1>1. Init => Inv
+...
+  <2>2. \E prefix \in Seq({c}) : output = prefix \o s
+```
+
+Given that the initial condition, `Init`, contains the conjunct `output = s`,
+this should obviously be true, given that the definition of `Seq` includes
+zero-length sequences.
+
+Unfortunately, TLAPS can't figure this out on its own, so we need to help it by
+breaking this down into sub-steps that TLAPS can check, like this:
+
+```
+<2>2. \E prefix \in Seq({c}) : output = prefix \o s
+  <3>1. output = << >> \o s
+    OBVIOUS
+  <3>2. << >> \in Seq({c})
+    BY DEF Seq
+  <3>3. QED BY <3>1, <3>2
+```
+
+
 The most interesting part of the proof is proving `<1>2. Inv /\ [Next]_vars => Inv'`. 
 It's broken up into cases. At the top-level, we prove it for each possible
 value of the `pc` variable, and for each of those, we prove `Inv'` for each of
