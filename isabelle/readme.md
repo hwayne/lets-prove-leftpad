@@ -4,7 +4,7 @@
 
 Isabelle is primarily a theorem prover. It allows us to define things and
 interactively prove properties about them. It can [generate executable
-code](https://isabelle.in.tum.de/dist/Isabelle2017/doc/codegen.pdf) from
+code](https://isabelle.in.tum.de/dist/Isabelle2018/doc/codegen.pdf) from
 certain definitions but we don't use this functionality here.
 
 ## About the Proof
