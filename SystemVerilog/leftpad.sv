@@ -255,38 +255,52 @@ assert property (@(posedge clk)
 
 /**
  * Here is a few example executions expressed as SVA. Operator |=> is a right-associative
- * implication where the right hand side must hold at the next clock cycle. If the implication fails
- * somwhere before rightmost operand, the model checker will report that the corresponding
- * precondition does not hold.
+ * implication where the right hand side must hold at the next clock cycle.
  *
- * During the input cycles, we don't need to specify the state if we are confident that the system
+ * During the input cycles, we don't need to constrain the state if we are confident that the system
  * reads the input correctly.
  */
 
 /* leftpad('!', 5, "foo") */
+sequence seq_example0_in;
+    cycle == 0 && strlen_la == 3 && desired_la == 5 && cpad_la == "!" &&
+    /* state == ST_READ && */ cin == "f" ##1
+    /* state == ST_READ && */ cin == "o" ##1
+    /* state == ST_READ && */ cin == "o";
+endsequence
+
+sequence seq_example0_out;
+    state == ST_PAD && cout == "!" ##1
+    state == ST_PAD && cout == "!" ##1
+    state == ST_O_STR && cout == "f" ##1
+    state == ST_O_STR && cout == "o" ##1
+    state == ST_O_STR && cout == "o" ##1
+    state == ST_DIS;
+endsequence
+
 assert property (@(posedge clk)
     disable iff (rst)
-    cycle == 0 && strlen_la == 3 && desired_la == 5 && cpad_la == "!" &&
-    /* state == ST_READ && */ cin == "f" |=>
-    /* state == ST_READ && */ cin == "o" |=>
-    /* state == ST_READ && */ cin == "o" |=>
-    state == ST_PAD && cout == "!" |=>
-    state == ST_PAD && cout == "!" |=>
-    state == ST_O_STR && cout == "f" |=>
-    state == ST_O_STR && cout == "o" |=>
-    state == ST_O_STR && cout == "o" |=>
-    state == ST_DIS);
+    seq_example0_in |=>
+    seq_example0_out);
 
 /* leftpad('!', 0, "foo") */
+sequence seq_example1_in;
+    cycle == 0 && strlen_la == 3 && desired_la == 0 && cpad_la == "!" &&
+    /* state == ST_READ && */ cin == "f" ##1
+    /* state == ST_READ && */ cin == "o" ##1
+    /* state == ST_READ && */ cin == "o";
+endsequence
+
+sequence seq_example1_out;
+    state == ST_O_STR && cout == "f" ##1
+    state == ST_O_STR && cout == "o" ##1
+    state == ST_O_STR && cout == "o" ##1
+    state == ST_DIS;
+endsequence
+
 assert property (@(posedge clk)
     disable iff (rst)
-    cycle == 0 && strlen_la == 3 && desired_la == 0 && cpad_la == "!" &&
-    /* state == ST_READ && */ cin == "f" |=>
-    /* state == ST_READ && */ cin == "o" |=>
-    /* state == ST_READ && */ cin == "o" |=>
-    state == ST_O_STR && cout == "f" |=>
-    state == ST_O_STR && cout == "o" |=>
-    state == ST_O_STR && cout == "o" |=>
-    state == ST_DIS);
+    seq_example1_in |=>
+    seq_example1_out);
 
 endmodule : leftpad
