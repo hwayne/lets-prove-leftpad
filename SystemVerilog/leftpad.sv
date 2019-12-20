@@ -174,7 +174,7 @@ logic [$clog2(3*STR_LEN_MAX+1)-1:0] cycle;
 always_ff @(posedge clk) begin
     if (rst) begin
         cycle <= '0;
-    end else if (cycle < 3*STR_LEN_MAX+1) /* Prevent it from wrapping */
+    end else if (cycle < 3*STR_LEN_MAX) /* Prevent it from wrapping */
         cycle <= cycle + 1'b1;
 end
 
