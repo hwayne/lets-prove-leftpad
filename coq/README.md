@@ -2,7 +2,7 @@
 
 Coq is an interactive theorem prover, dating back to 1989, allowing us to
 state, prove, and proof-check, mathematical assertions in the spirit of
-[constructism](https://en.wikipedia.org/wiki/Constructivism_(mathematics)),
+[constructivism](https://en.wikipedia.org/wiki/Constructivism_(mathematics)),
 wherein proofs are essentially functions on data in the first place; thus it is
 natural to both write functions and write proofs about those functions within
 one system. The logical system Coq is based on is the Calculus of Inductive
