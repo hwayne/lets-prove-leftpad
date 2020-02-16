@@ -1,6 +1,6 @@
 # [Idris](http://www.idris-lang.org/)
 
-I saw the partially proven LiquidHaskell version, and thought about how the natrual way to specify the output was just "padding + text" for some appropriate padding, and decided to see if I could specify it exactly that way.
+I saw the partially proven LiquidHaskell version, and thought about how the natural way to specify the output was just "padding + text" for some appropriate padding, and decided to see if I could specify it exactly that way.
 
 ## About Idris
 
