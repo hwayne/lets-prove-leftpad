@@ -8,7 +8,7 @@ One folder per leftpad, one leftpad per folder. If you're the first person uploa
 
 Your code should formally prove the total specification of Leftpad. It must do this without any assumptions in the proof, and the proof must correct. Proving intermediate lemmas or ghost functions is fine, as are using already-proven primitives your language's standard library.
 
-Along with your leftpad, you should include an `about.md` file. It should contain:
+Along with your leftpad, you should include a `readme.md` file. It should contain:
 * The name of your tool, and a link to learn more about it.
 * A link to an online demo of your leftpad, if your language has one.
 * A description of the language. What does it look like? How does it work? What makes it different or special?
