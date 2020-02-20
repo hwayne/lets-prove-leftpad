@@ -8,15 +8,23 @@ usually associated with formally verified code!
 ## About This Solution
 
 The `leftpad` function lists pre- and post-conditions in the docstring, which
-are verified by symbolic execution with [CrossHair](https://github.com/pschanely/CrossHair)
+are checked by symbolic execution with [CrossHair](https://github.com/pschanely/CrossHair)
 (and the Z3 backend).
 
 I wrote the function body as a loop purely to avoid having the code as a
 near-duplicate of the spec, though that would actually be more efficient
 at runtime!
 
-The spec can be [verified online here](https://crosshair-web.org/?crosshair=0.1&python=3.8&gist=026709425e8e73cbd513d5f4e6884a39),
+The spec can be [checked online here](https://crosshair-web.org/?crosshair=0.1&python=3.8&gist=026709425e8e73cbd513d5f4e6884a39),
 including by breaking the implementation - try replacing `<` with `<=`, for example!
+
+**Note:** This solution in CrossHair is bending the rules of lets-prove-leftpad;
+CrossHair only constructs proofs for unique execution paths through the code.
+[The Fuzzing Book](https://www.fuzzingbook.org/html/SymbolicFuzzer.html#Symbolic-Fuzzing)
+has a nice chapter on how this works. Because this implementation of leftpad
+has an infinite number of possible paths, CrossHair will only verify some of
+them. Put another way: CrossHair is a counterexample-finder, not verification
+tool.
 
 ## Why I love CrossHair
 
