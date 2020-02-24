@@ -74,3 +74,11 @@ but `length` is defined as `nat` which is not a group due to lack of inverse.
 Therefore, it has to be proven for `nat` separately in `data.nat.basic`.
 
 That's it!
+
+## About Me
+
+I am Yufan, a Computer Science undergrad at SUNY Old Westbury.
+I am curious about formal methods because I like learning new languages and solving puzzles.
+
+* [My Github](https://github.com/louy2)
+* [My Dev.to](https://dev.to/louy2)
