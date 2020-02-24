@@ -53,7 +53,7 @@ Tactic mode is one of Lean's central features.
 It is in tactic mode that Lean displays a view of goals like Coq does. 
 There are simple tactics such as `rewrite` (abbrev. `rw`) which rewrites the goal according to definitions, 
 as well as powerful tactics such as `simp` (simplify) and `refl` (reflection) which apply a collection of 
-common-sense theorems to simplify or even prove the goal in one go.
+common-sense theorems (in this case proven in mathlib) to simplify or even prove the goal in one go.
 
 The operator `<+:` means `is_prefix` and `<:+` means `is_suffix`. 
 They are both defined in `data.list` in mathlib.
