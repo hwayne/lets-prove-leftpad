@@ -24,7 +24,7 @@ SSReflect uses Gallina and also provides addition tactics, i.e. reasoning steps,
 suitable for the long mathematical proofs that SSReflect is intended to help encode.
 This extension of Coq has already proved very efficient:
 it was used to formally prove the [4-color theorem](https://en.wikipedia.org/wiki/Four_color_theorem)
-and the [Feit-Thomspon theorem](https://en.wikipedia.org/wiki/Feit–Thompson_theorem).
+and the [Feit-Thompson theorem](https://en.wikipedia.org/wiki/Feit–Thompson_theorem).
 The SSReflect additional tactics are few, but they can be combined with additional *tacticals*,
 i.e. tactic modifiers, such that one same tactic may cope with a wide range of similar situations.
 Also the tactics combine nicely with each other, so that proof scripts may be sometimes as short as the pen-and-paper proofs that they formally encode.
