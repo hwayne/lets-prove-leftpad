@@ -1,23 +1,26 @@
 ------------------------------ MODULE LeftPad ------------------------------
 EXTENDS Naturals, Sequences, TLAPS
 
-CONSTANTS alphabet
+CONSTANTS alphabet, c, n, s
+
+ASSUME ConstAssumption ==
+  /\ c \in alphabet
+  /\ n \in Nat
+  /\ s \in Seq(alphabet)
 
 max(x,y) == IF x>y THEN x ELSE y
 
 (*
 --algorithm LeftPad
 variables
-    \* inputs
-    c \in alphabet,
-    n \in Nat,
-    s \in Seq(alphabet),
-    
     output = s,
     
     \* local vars
-    pad = max(n - Len(s), 0),
     i = 0
+
+define pad == max(n - Len(s), 0)
+end define;
+
 begin    
 a:  while i<pad do
         output := <<c>> \o output;
@@ -25,17 +28,17 @@ a:  while i<pad do
     end while
 end algorithm
 *)
-\* BEGIN TRANSLATION
-VARIABLES c, n, s, output, pad, i, pc
+\* BEGIN TRANSLATION PCal-00372dbce199f116a7ffb45377d629e8
+VARIABLES output, i, pc
 
-vars == << c, n, s, output, pad, i, pc >>
+(* define statement *)
+pad == max(n - Len(s), 0)
+
+
+vars == << output, i, pc >>
 
 Init == (* Global variables *)
-        /\ c \in alphabet
-        /\ n \in Nat
-        /\ s \in Seq(alphabet)
         /\ output = s
-        /\ pad = max(n - Len(s), 0)
         /\ i = 0
         /\ pc = "a"
 
@@ -46,17 +49,18 @@ a == /\ pc = "a"
                 /\ pc' = "a"
            ELSE /\ pc' = "Done"
                 /\ UNCHANGED << output, i >>
-     /\ UNCHANGED << c, n, s, pad >>
+
+(* Allow infinite stuttering to prevent deadlock on termination. *)
+Terminating == pc = "Done" /\ UNCHANGED vars
 
 Next == a
-           \/ (* Disjunct to prevent deadlock on termination *)
-              (pc = "Done" /\ UNCHANGED vars)
+           \/ Terminating
 
 Spec == Init /\ [][Next]_vars
 
 Termination == <>(pc = "Done")
 
-\* END TRANSLATION
+\* END TRANSLATION TLA-a0fc80ee85fca2fa827a5d462a7b566d
 
 (***************************************************************************)
 (* Specification for leftpad as given in the top-level readme in this      *)
@@ -72,91 +76,65 @@ Termination == <>(pc = "Done")
 Correct == pc="Done" => /\ Len(output) = max(n, Len(s))
                         /\ \E prefix \in Seq({c}) : output = prefix \o s
                     
-TypeOK == /\ c \in alphabet
-          /\ n \in Nat
-          /\ s \in Seq(alphabet)
-          /\ output \in Seq(alphabet)
-          /\ pad \in Nat
-          /\ i \in Nat
+TypeOK == /\ i \in Nat
+          /\ pad \in Nat   \* pad is actually a constant expression, but we include it here for simplicity
           /\ pc \in {"a", "Done"}
 
 (***************************************************************************)
 (* This is the inductive invariant                                         *)
 (***************************************************************************)
-Inv == /\ TypeOK
-       /\ \E prefix \in Seq({c}) : output = prefix \o s
-       /\ Len(output) = Len(s) \/ Len(output) <= n
-       /\ Len(output) = Len(s) + i 
-       /\ pad = max(n - Len(s), 0)
-       /\ i>=0
-       /\ Correct
+IInv == /\ \E prefix \in Seq({c}) : output = prefix \o s
+        /\ Len(output) = Len(s) + i
+        /\ 0 <= i /\ i <= pad
+        /\ pc = "Done" => i >= pad
 
+Inv == TypeOK /\ IInv
 ISpec == Inv /\ [][Next]_vars
 
-THEOREM Spec=>[]Correct
-<1>1. Init => Inv
-  <2> SUFFICES ASSUME Init
-               PROVE  Inv
-    OBVIOUS
-  <2> USE DEF Init
-  <2>1. TypeOK
-    BY DEF TypeOK,max
-  <2>2. \E prefix \in Seq({c}) : output = prefix \o s
-    <3>1. output = << >> \o s
-        OBVIOUS
-    <3>2. << >> \in Seq({c})
-        BY DEF Seq
-    <3>3. QED BY <3>1, <3>2
-  <2>3. QED
-    BY <2>1, <2>2 DEF Inv,Correct
-<1>2. Inv /\ [Next]_vars => Inv'
+USE ConstAssumption
+
+LEMMA Typing == Spec => []TypeOK
+<1>1. Init => TypeOK
+  BY DEF Init, TypeOK, pad, max
+<1>2. TypeOK /\ [Next]_vars => TypeOK'
+  BY DEF TypeOK, Next, a, Terminating, vars, pad, max
+<1>. QED  BY <1>1, <1>2, PTL DEF Spec
+
+THEOREM Invariant == Spec => []Correct
+<1>1. Init /\ TypeOK => IInv
+  <2>. Init => output = << >> \o s  BY DEF Init
+  <2>. QED  BY Isa DEF Init, TypeOK, IInv
+<1>2. Inv /\ [Next]_vars => IInv'
   <2> SUFFICES ASSUME Inv,
                       [Next]_vars
-               PROVE  Inv'
+               PROVE  IInv'
     OBVIOUS
-  <2> USE DEF Inv
-  <2>1. CASE a
-    <3> USE DEF a,TypeOK
-    <3>1. TypeOK'
-        BY <2>1
-    <3>2. (\E prefix \in Seq({c}) : output = prefix \o s)'
-        <4>1. IF i<pad THEN output' = <<c>> \o output ELSE UNCHANGED output
-            BY <2>1
-        <4>2. CASE i<pad
-            <5>1. \E prefix \in Seq({c}) : <<c>> \o output = <<c>> \o prefix \o s
-                OBVIOUS
-            <5>2. \A p \in Seq({c}) : <<c>> \o p \in Seq({c})
-                OBVIOUS
-            <5>3. QED
-                BY <2>1,<4>1,<4>2,<5>1,<5>2
-        <4>3. CASE ~(i<pad)
-            BY <2>1,<4>1,<4>3
-        <4>4. QED BY <4>1,<4>2,<4>3
-    <3>3. (Len(output) = Len(s) \/ Len(output) <= n)'
-        BY <2>1 DEF Inv,Next,vars,max
-    <3>4. (Len(output) = Len(s) + i)'
-        BY <2>1 DEF Inv
-    <3>5. (i>=0)'
-        BY <2>1
-    <3>6. (pad = max(n - Len(s), 0))'
-        BY <2>1
-    <3>7. Correct'
-        BY <2>1,<3>2 DEF max,Inv,Correct
-    <3>8. QED
-      BY <3>1, <3>2, <3>3, <3>4, <3>5, <3>6, <3>7 DEF Inv
-  <2>2. CASE pc = "Done" /\ UNCHANGED vars
-      BY <2>2 DEF vars,TypeOK,Correct,Inv
+  <2>1. CASE a /\ i < pad
+    <3>1. PICK pref \in Seq({c}) : output = pref \o s
+      BY DEF Inv, IInv
+    <3>2. <<c>> \o pref \in Seq({c}) /\ output' = (<<c>> \o pref) \o s
+      BY <3>1, <2>1 DEF a
+    <3>3. \E prefix \in Seq({c}) : output' = prefix \o s
+      BY <3>2, Zenon
+    <3>4. Len(output') = Len(output) + 1
+      BY <2>1 DEF a
+    <3>. QED  BY <3>3, <3>4, <2>1 DEF Inv, TypeOK, IInv, a
+  <2>2. CASE a /\ ~(i < pad)
+    BY <2>2 DEF Inv, TypeOK, IInv, a
   <2>3. CASE UNCHANGED vars
-      BY <2>3 DEF vars,TypeOK,Correct,Inv
-  <2>4. QED
-    BY <2>1, <2>2, <2>3 DEF Next
+    BY <2>3 DEF Inv, IInv, vars
+  <2>. QED
+    BY <2>1, <2>2, <2>3 DEF Next, Terminating
 <1>3. Inv => Correct
-    BY DEF Inv
-<1>4. QED
-    BY <1>1, <1>2, <1>3, PTL DEF Spec 
-
+  <2>. SUFFICES ASSUME Inv, pc = "Done" 
+                PROVE  Len(output) = max(n, Len(s))
+    BY DEF Inv, IInv, Correct
+  <2>. i = IF n > Len(s) THEN n - Len(s) ELSE 0
+    BY DEF Inv, TypeOK, IInv, pad, max
+  <2>. QED  BY DEF Inv, TypeOK, IInv, max
+<1>. QED  BY <1>1, <1>2, <1>3, Typing, PTL DEF Spec, Inv
 
 =============================================================================
 \* Modification History
-\* Last modified Tue Dec 11 19:16:36 EST 2018 by lhochstein
-\* Created Wed Dec 05 17:06:03 CET 2018 by lhochstein
+\* Last modified Sat Feb 29 16:01:58 CET 2020 by merz
+\* Created Sat Feb 29 12:28:29 CET 2020 by merz
