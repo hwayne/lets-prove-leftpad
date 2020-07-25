@@ -103,14 +103,3 @@ loop init-itp .
 
 (ind* on S .)
 
---- (goal split : LEFTPAD
----     |- A{N:Nat ; S:Str} ((take(N, S) drop(N, S)) = (S)) .)
-
---- (ind on S .)
---- (ind* on N .)
---- (auto .)
---- (cns .)
---- (imp .)
---- (ind on N .)
---- (auto .)
-
