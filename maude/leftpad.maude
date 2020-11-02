@@ -1,0 +1,105 @@
+load maude_itp/itp-tool.maude
+
+fmod LEFTPAD is
+    protecting NAT .
+
+    sort Str .
+    subsort Nat < Str .
+
+    vars N M C : Nat .
+    vars S T : Str .
+
+    op eps : -> Str [ctor] .
+    op __ : Str Str -> Str [ctor assoc] .
+
+    op length : Str -> Nat .
+    op take : Nat Str -> Str .
+    op drop : Nat Str -> Str .
+
+    op _-_ : Nat Nat -> Nat .
+    op maximum : Nat Nat -> Nat .
+
+    eq 0 - M = 0 .
+    eq N - 0 = N .
+    eq s(N) - s(M) = N - M .
+
+    eq maximum(N, 0) = N .
+    eq maximum(0, M) = M .
+    eq maximum(s(N), s(M)) = s(maximum(N, M)) .
+
+    eq S eps = S .
+    eq eps S = S .
+
+    eq length(eps) = 0 .
+    eq length(C) = 1 .
+    eq length(C S) = s(length(S)) .
+
+    eq take(0, S) = eps .
+    eq take(N, eps) = eps .
+    eq take(s(N), C) = C .
+    eq take(s(N), C S) = C take(N, S) .
+
+    eq drop(0, S) = S .
+    eq drop(N, eps) = eps .
+    eq drop(s(N), C) = eps .
+    eq drop(s(N), C S) = drop(N, S) .
+
+    op leftpad : Nat Nat Str -> Str .
+    op repeat : Nat Nat -> Str .
+
+    eq leftpad(N, C, S) = repeat(N - length(S), C) S .
+
+    eq repeat(0, C) = eps .
+    eq repeat(s(N), C) = C repeat(N, C) .
+endfm
+
+select ITP-TOOL .
+loop init-itp .
+
+(goal len : LEFTPAD
+    |- A{N:Nat ; C:Nat ; S:Str}
+        ((length(leftpad(N, C, S))) = (maximum(N, length(S)))) .)
+
+(lem lengthSum : A{S:Str ; T:Str} ((length(S T)) = (length(S) + length(T))) .)
+(ind* on S .)
+
+(lem lengthRepeat : A{N:Nat ; C:Nat} ((length(repeat(N, C))) = (N)) .)
+(ind* on N .)
+
+(lem subAddMax : A{N:Nat ; M:Nat} (((M - N) + N) = (maximum(M, N))) .)
+(ind on N .)
+(ind* on M .)
+(cns .)
+(imp .)
+(ind* on M .)
+
+(ind on S .)
+(ind* on N .)
+(ind* on N .)
+(auto .)
+(auto .)
+
+(goal prefix : LEFTPAD
+    |- A{N:Nat ; C:Nat ; S:Str}
+        ((take(N - length(S), leftpad(N, C, S))) = (repeat(N - length(S), C))) .)
+
+(lem takeRepeat : A{N:Nat ; C:Nat ; S:Str} ((take(N, repeat(N, C) S)) = (repeat(N, C))) .)
+(ind* on N .)
+
+(lem takeRepeat2 : A{N:Nat ; C:Nat} ((take(N, repeat(N, C))) = (repeat(N, C))) .)
+(ind* on N .)
+
+(ind* on S .)
+
+(goal suffix : LEFTPAD
+    |- A{N:Nat ; C:Nat ; S:Str}
+        ((drop(N - length(S), leftpad(N, C, S))) = (S)) .)
+
+(lem dropRepeat : A{N:Nat ; C:Nat ; S:Str} ((drop(N, repeat(N, C) S)) = (S)) .)
+(ind* on N .)
+
+(lem dropRepeat : A{N:Nat ; C:Nat} ((drop(N, repeat(N, C))) = (eps)) .)
+(ind* on N .)
+
+(ind* on S .)
+
