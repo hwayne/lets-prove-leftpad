@@ -6,7 +6,7 @@ import deal
 @deal.ensure(lambda _: len(_.result) == max(_.n, len(_.s)))
 @deal.ensure(lambda _: all(x == _.c for x in _.result[:-len(_.s)]))
 @deal.ensure(lambda _: all(x[0] == x[1] for x in zip(reversed(_.result), reversed(_.s))))
-@deal.raises(OverflowError)
+@deal.raises(MemoryError, OverflowError)
 @deal.reason(OverflowError, lambda _: _.n - len(_.s) > sys.maxsize)
 @deal.has()
 def left_pad(c: str, n: int, s: str) -> str:
