@@ -27,5 +27,11 @@ All these Python dependencies can be installed by running
 
 It is recommended that you create and activate a Python 3 virtualenv first.
 
+As the property checks do execute the implemented code, they can consume a
+non-negligible amount of system resources, depending on the inputs generated.
+In the case of `left_pad()`, it will consume a large amount of memory if `n` is
+too big.  To avoid that, tests can be executed under a limited address space.
+We can assume the tests were successful if they have a 100% coverage.
+
 A `GNUmakefile` is provided mostly for documentation purposes; it contains all
 commands that must be executed in order to run the proofs.
