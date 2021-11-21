@@ -1,4 +1,4 @@
-# [Dafny](https://rise4fun.com/Dafny/)
+# [Dafny](https://github.com/dafny-lang/dafny)
 
 The one that started it all! The leftpad challenge, not the idea of proving. [You can run the leftpad proof here](https://rise4fun.com/Dafny/nbNTl).
 
