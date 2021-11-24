@@ -4,7 +4,7 @@ This is a repository of provably-correct versions of Leftpad.
 
 ## What is "provably-correct"?
 
-**Provably correct code** is code that you can totally guarantee does what you say it does. You do this by providing a **proof** that a computer can check. If the proof is wrong, the code won't compile.
+**Provably correct code** is code that you can totally guarantee does what you say it does. You do this by providing a [**proof** that a computer can check](https://en.wikipedia.org/wiki/Formal_methods). If the proof is wrong, the code won't compile.
 
 Compare to something like testing: even if you test your function for 1,000 different inputs, you still don't know _for sure_ that the 1,001st test will pass. With a proof, though, you know your function will work for all inputs, regardless of whether you try a thousand or ten trillion different test cases. Proving code correct is really, really powerful. It's also mindbogglingly hard, which is why most programmers don't do it.
 
