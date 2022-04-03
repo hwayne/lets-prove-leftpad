@@ -1,0 +1,4 @@
+﻿THEORY User_Pass IS
+Operation(WellDefinedness_leftpad) & ff(0) & dd & dc(nn<=size(ss)) & dd & ah(size(vv) = size(ss)) & pr & dd & pp(rp.1 | 60) & dd & ah(size(vv) = nn) & pr & pp(rp.1 | 60) & pp(rp.1 | 60) & dd & eh(size(vv),nn,AllHyp) & dd & ah(dom(vv) = 1..nn) & pr & dd & eh(dom(vv),1..nn,Goal) & pr;
+Operation(WellDefinedness_leftpad) & ff(0) & dd & dc(nn<=size(ss)) & dd & ah(max({nn-size(ss),0}) = 0) & pr & pp(rp.1 | 60) & dd & eh(max({nn-size(ss),0}),0,Goal) & ah(size(vv) = size(ss)) & pr & dd & ah(dom(vv) = 1..size(ss)) & pr & dd & eh(dom(vv),1..size(ss),Goal) & pr & dd & ah(max({nn-size(ss),0}) = nn-size(ss)) & pr & pr & pp(rp.1 | 60) & dd & pr & dd & eh(max({nn-size(ss),0}),nn-size(ss),Goal) & ah(size(vv) = nn) & pr & pp(rp.1 | 60) & pp(rp.1 | 60) & dd & ah(dom(vv) = 1..nn) & pp(rp.1 | 60) & dd & eh(dom(vv),1..nn,Goal) & pp(rp.1 | 60)
+END
