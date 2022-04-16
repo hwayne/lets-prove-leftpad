@@ -20,14 +20,22 @@ mod tests {
 	use super::leftpad;
 	#[test]
 	fn no_op() {
-		leftpad(b"foo", 3, b'!');
+		assert_eq!(leftpad(b"foo", 3, b'!').as_slice(), b"foo");
 	}
 	#[test]
 	fn zero_len() {
-		leftpad(b"foo", 0, b'!');
+		assert_eq!(leftpad(b"foo", 0, b'!').as_slice(), b"foo");
 	}
 	#[test]
 	fn padded() {
-		leftpad(b"foo", 5, b'!');
+		assert_eq!(leftpad(b"foo", 5, b'!').as_slice(), b"!!foo");
+	}
+	#[test]
+	fn empty_string() {
+		assert_eq!(leftpad(b"", 5, b'!').as_slice(), b"!!!!!");
+	}
+	#[test]
+	fn empty_zero() {
+		assert_eq!(leftpad(b"", 0, b'!').as_slice(), b"");
 	}
 }
