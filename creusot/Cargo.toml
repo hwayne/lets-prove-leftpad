@@ -1,0 +1,10 @@
+[package]
+name = "leftpad"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.creusot-contracts]
+git = "https://github.com/xldenis/creusot"
+
+[features]
+contracts = ["creusot-contracts/contracts"]
