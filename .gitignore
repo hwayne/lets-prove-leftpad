@@ -1,3 +1,5 @@
 *.pdf
 *.tlaps
 *.toolbox
+creusot/target
+creusot/Cargo.lock
