@@ -1,7 +1,8 @@
 # HOL-Light
 
-HOL-Light is proof assistant by John Harrisson in the tradition of LCF.
-You can find more information at https://www.cl.cam.ac.uk/~jrh13/hol-light/.
+[HOL-Light](https://www.cl.cam.ac.uk/~jrh13/hol-light/)
+is a proof assistant by John Harrisson in the tradition of
+[LCF](https://en.wikipedia.org/wiki/Logic_for_Computable_Functions).
 
 HOL-Light's old-school style prompts for a lot of uppercase. That makes
 it sound more authoriative.
@@ -46,7 +47,7 @@ I then proved a lemma that relates `DROP` and `APPEND` in the
 rather obvious way. Its proof is a nice two-liner using inductive
 reasoning on lists.
 
-Finally, one theorem was missing: taking any element in bounds
+Finally, one theorem was missing: taking any element within the bounds
 of a list created by `REPLICATE` returns the replicated element.
 That was surprisingly non-trival to prove, but golfing a bit
 revealed a three-liner proof.
@@ -65,13 +66,13 @@ constraint imposed. The spec is a conjunction of three properties.
 
   1. The length of the padded list is at least `n`, the input
      number.
-  2. Any element with index less then `n - LENGTH l` in the
+  2. Any element with index less than `n - LENGTH l` in the
      output is `x`.
   3. If we drop the prefix of length `n - LENGTH l`, we end
      up with the input list.
 
 All conjuncts are proved by the same proof script. I inserted
-comments to make the split of the script more apparrent. But
+comments to make the split of the script more apparent. But
 following the style of the HOL-Light distributtion, the script
 is nice and dense.
 
@@ -89,12 +90,12 @@ Using HOL-Light is not a piece of cake, but because I like
 toying with it so much I built some tooling that you may
 find useful.
 
-HOL-Light works in an OCaml toplevel and, each time you start
+HOL-Light works in an [OCaml toplevel](https://v2.ocaml.org/manual/toplevel.html) and, each time you start
 it, the toplevel must ingest a vast amount of OCaml code. That
 is slow. To speed things up, you can use a snapshotting library
 that will serialize your loaded toplevel into an executable
 you can use afterwards. I wrote such a snapshotting library that
-works for C, OCaml (and HOL-Light), you can find it there:
+works for C and OCaml (and HOL-Light); you can find it there:
 https://c9x.me/git/selfie.git/.
 
 Then comes the question of interacting with the toplevel in a
