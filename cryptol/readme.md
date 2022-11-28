@@ -6,12 +6,11 @@ Per its [website](https://cryptol.net/),
 
 > Cryptol is a domain-specific language for specifying cryptographic algorithms.
 
-It's intended for writing cryptographic algorithms in a language that more closely resembles their mathematical specifications.
+It's intended for writing cryptographic algorithms in a language that more closely resembles their mathematical descriptions.
 These executable specifications can serve as the formal documentation for a cryptographic module.
 We can then use such executable specifications can to formally verify properties specified in Cryptol itself or to automatically verify implementations written in, say, C via [SAW](https://saw.galois.com/).
 
-Cryptol is a strongly-typed functional language [implemented in Haskell](https://github.com/GaloisInc/cryptol).
-It resembles Haskell with a way of expressing arithmetic constraints on type variables.
+Cryptol is a strongly-typed functional language [implemented in Haskell](https://github.com/GaloisInc/cryptol); Cryptol itself resembles Haskell with the addition of being able to express arithmetic constraints on type variables.
 Per the [Programming Cryptol book](https://cryptol.net/files/ProgrammingCryptol.pdf),
 
 > Cryptol does not have a general-purpose dependent type system, but a size-polymorphic type system.
@@ -21,7 +20,7 @@ The type system also allows expressing arbitrary relations over the type variabl
 
 The Cryptol interpreter/REPL offer a couple of commands that are useful for this exercise:
 
-- `:check`, which checks a `property` in a randomized fashion akin to `QuickCheck`, and
+- `:check`, which checks a `property` in a randomized fashion akin to [QuickCheck](https://en.wikipedia.org/wiki/QuickCheck),
 - `:exhaust`, which exhaustively checks a `property`, and
 - `:prove`, which proves a `property` by calling out to SMT solvers, [Z3 by default](https://github.com/Z3Prover/z3).
 
@@ -35,6 +34,7 @@ leftpad : {pad, in, out} Char -> String in -> String out
 leftpad c s = repeat `{pad - in} c # s
 ```
 
+Now, this reads "given three lengths `pad`, `in`, and `out`, a character `c`, and a string `s` of length `in`, repeat `c` (`pad` - `in`) times and append to that the original string `s`."
 This still won't compile, however, as the Cryptol interpreter will complain about needing certain constraints:
 
 ```
