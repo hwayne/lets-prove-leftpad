@@ -1,0 +1,21 @@
+module leftpad where
+
+// Factor out the length constraints for reuse.
+type constraint lpCons pad in out = (fin pad, fin in, fin out, pad >= in, out == pad)
+
+// Our leftpad function: given a character and an input string, construct the output string.
+// Note that our constraints `lpCons` enforce arithmetic relations on the sizes.
+leftpad : {pad, in, out} (lpCons pad in out) => Char -> String in -> String out
+leftpad c s = repeat `{pad - in} c # s
+
+// First property of leftpad: the length of the output is `out`, A.K.A. `pad` A.K.A. `max(pad, in)`.
+leftpadLength : {pad, in, out} (lpCons pad in out) => Char -> String in -> Bit
+property leftpadLength c s = length (leftpad `{pad, in, out} c s) == `out
+
+// Second property of leftpad: the prefix of the output is padding characters and nothing but padding characters.
+leftpadPrefix : {pad, in, out} (lpCons pad in out) => Char -> String in -> Bit
+property leftpadPrefix c s = take `{pad - in}(leftpad `{pad, in, out} c s) == repeat `{pad - in} c
+
+// Third property of leftpad: the suffix of the output is the original string.
+leftpadSuffix : {pad, in, out} (lpCons pad in out) => Char -> String in -> Bit
+property leftpadSuffix c s = drop`{pad - in}(leftpad `{pad, in, out} c s) == s
