@@ -110,13 +110,17 @@ Not a monomorphic type:
 (Total Elapsed Time: 0.000s)
 ```
 
-Because the type `{pad, in, out}` is not monomorphic (i.e. instantiated with specific numbers in this case), `cryptol` refuses to try and prove `leftpadLength`.
+Because the type `{pad, in, out}` is not monomorphic (i.e. instantiated with specific number values in this case), `cryptol` refuses to try and prove `leftpadLength`.
 Quoth [Programming Cryptol](https://cryptol.net/files/ProgrammingCryptol.pdf),
 
 > we cannot directly prove polymorphic properties as they may hold for certain monomorphic instances while not for others. In this cases, we must tell Cryptol what particular monomorphic instance of the property we would like it to prove.
 
 I suppose this makes sense given Cryptol's intended use.
 Though we may wish to state polymorphic constraints with type variables like `pad`, `in`, and `out`, Cryptol's ultimate goal is to construct rock-solid specifications of cryptographic algorithms; in "real world implementations," one would fill in these type variables for any specific implementation.
+What's more, Cryptol allows us to express arbitrary arithmetic at the type level; as they note,
+
+> Type inference in the presence of arithmetic predicates is an undecidable problem. This implies that there is no algorithm to decide whether a given type is inhabited, amongst other things. In practical terms, we might end up writing programs with arbitrarily complicated predicates (e.g., this "type contains all solutions to Fermat's last equation" or "this type contains all primes between two large numbers") without Cryptol being able to simplify them, or notice that there is no instantiation that will ever work.
+
 I'm a bit saddened by this; but! We can continue by specifying values for `pad`, `in`, and `out` for the interpreter.
 
 ```
