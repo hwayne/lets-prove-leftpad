@@ -47,7 +47,7 @@ A first function takes a length `l` and builds the left-padded string. The domai
 ( l e. NN0 |-> ( ( ( 0 ..^ ( l - ( # ` W ) ) ) X. { C } ) ++ W ) )
 ```
 
-The complete function takes the two other arguments, the character `c` and the word `w`, and returns the first function. In order to keep the definition generic, we don't constrain `c` and `l` other than requiring that they are sets, i.e. elements of the universal class `_V`. This is the complete expression you'll find in the definition of `leftpad`:
+The complete function takes the two other arguments, the character `c` and the word `w`, and returns the first function. In order to keep the definition generic, we don't constrain `c` and `w` other than requiring that they are sets, i.e. elements of the universal class `_V`. This is the complete expression you'll find in the definition of `leftpad`:
 ```
 ( c e. _V , w e. _V |-> ( l e. NN0 |-> ( ( ( 0 ..^ ( l - ( # ` w ) ) ) X. { c } ) ++ w ) ) )
 ```
