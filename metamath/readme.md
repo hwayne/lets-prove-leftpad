@@ -63,6 +63,8 @@ The Metamath community is active and alive, and we welcome and encourage new con
 ## More details and explanations
 
 ### Definition of `leftpad`
+We define the leftpad function as accepting character `c`, a word (sequence) `w`, and a length `l`; it returns a new word with `c` repeated `l` times followed by the original word `w`.
+
 Character strings in `set.mm` are formalized as functions from integer intervals starting at zero to the character set.
 In order to formalize the repetition of `n` times a character `C`, a constant function from the interval `0 ... (n - 1)` is used.
 
@@ -111,7 +113,7 @@ h3::lpadval.3   |- ( ph -> C e. S )
 lpadval |- ( ph -> ( ( C leftpad W ) ` L ) = ( ( ( 0 ..^ ( L - ( # ` W ) ) ) X. { C } ) ++ W ) )
 ```
 
-The main theorems used for this proof are the application of a function ([`~fvmptf`](https://us.metamath.org/mpeuni/fvmptd.html)) and an operation (`~ovmpt2d`)[https://us.metamath.org/mpeuni/ovmpt2d.html] to get their values. The rest is explicit substitution rules.
+The main theorems used for this proof are the application of a function ([`~fvmptf`](https://us.metamath.org/mpeuni/fvmptd.html)) and an operation ([`~ovmpt2d`](https://us.metamath.org/mpeuni/ovmpt2d.html)) to get their values. The rest is explicit substitution rules.
 
 ### Theorem `lpadmax`
 
@@ -123,7 +125,7 @@ The proof relies on two lemmas, one for each case ([`~lpadlen1`](https://us.meta
 
 ### Theorem `lpadleft`
 
-The statement of the theorem expresses that any character with an index in the range ``( 0 ..^ ( L - ( # ` W ) ) )`` is `C`:
+This theorem shows that any character with an index in the range ``( 0 ..^ ( L - ( # ` W ) ) )`` is `C``.
 ```
 lpadleft.1 $e |- ( ph -> N e. ( 0 ..^ ( L - ( # ` W ) ) ) )
 lpadleft $p |- ( ph -> ( ( ( C leftpad W ) ` L ) ` N ) = C )
@@ -131,6 +133,7 @@ lpadleft $p |- ( ph -> ( ( ( C leftpad W ) ` L ) ` N ) = C )
 This is obtained by first extracting the prefix using [`~ccatval1`](https://us.metamath.org/mpeuni/ccatval1.html), which results in a constant function, and then evaluating that constant function using [~fvconst2g](https://us.metamath.org/mpeuni/fvconst2g.html).
 
 ### Theorem `lpadright`
+This theorem shows that the last ``( # ` W )`` characters are the same as the corresponding characters in the original word `W`.
 
 The proof is very similar to that of `lpadleft`. Interesting is that the characters of `W` are found in the left-padded result, shifted by an amount of `M` characters. The value of `M` is defined as part of the hypothesis to obtain a simpler final statement.
 ```
