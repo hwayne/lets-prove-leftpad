@@ -64,7 +64,7 @@ The Metamath community is active and alive, and we welcome and encourage new con
 
 ### Definition of `leftpad`
 Character strings in `set.mm` are formalized as functions from integer intervals starting at zero to the character set.
-In order to formalize the repetition of `n` time a character `C`, a constant function from the interval `0 ... (n - 1)` is used.
+In order to formalize the repetition of `n` times a character `C`, a constant function from the interval `0 ... (n - 1)` is used.
 
 Here the number of repetitions should be the target length `L`, minus the length of the original word `W`:
 ```
@@ -87,12 +87,12 @@ Finally, the repetition of the constant is concatenated with the original word `
 ```
 
 The `leftpad` function takes 3 arguments: a character, a length, and a word. There is no formal definition in `set.mm` for functions of 3 arguments, but we can use currying and functions of 2 arguments.
-A first function takes a length `L` and builds the left-padded string. The domain of that function is `NN0`, the set of non-negative integers. We're using lowercase letters here for free variables. Metamath limits itself to ASCII characters, so `∈` is written as `e.`.  This first function is written:
+A first function takes a length `l` and builds the left-padded string. The domain of that function is `NN0`, the set of non-negative integers. We're using lowercase letters here for free variables. Metamath limits itself to ASCII characters, so `∈` is written as `e.`.  This first function is written:
 ```
 ( l e. NN0 |-> ( ( ( 0 ..^ ( l - ( # ` W ) ) ) X. { C } ) ++ W ) )
 ```
 
-The complete function takes the two other arguments, the character `C` and the length `L`, and returns the first function. In order to keep the definition generic, we don't constrain `C` and `L` other than requiring that they are sets, i.e. elements of the universal class `_V`. This is the complete expression you'll find in the definition of `leftpad`:
+The complete function takes the two other arguments, the character `c` and the word `w`, and returns the first function. In order to keep the definition generic, we don't constrain `c` and `w` other than requiring that they are sets, i.e. elements of the universal class `_V`. This is the complete expression you'll find in the definition of `leftpad`:
 ```
 ( c e. _V , w e. _V |-> ( l e. NN0 |-> ( ( ( 0 ..^ ( l - ( # ` w ) ) ) X. { c } ) ++ w ) ) )
 ```
