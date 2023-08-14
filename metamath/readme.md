@@ -125,7 +125,7 @@ The proof relies on two lemmas, one for each case ([`~lpadlen1`](https://us.meta
 
 ### Theorem `lpadleft`
 
-This theorem shows that any character with an index in the range ``( 0 ..^ ( L - ( # ` W ) ) )`` is `C``.
+This theorem shows that any character with an index in the range ``( 0 ..^ ( L - ( # ` W ) ) )`` is `C`.
 ```
 lpadleft.1 $e |- ( ph -> N e. ( 0 ..^ ( L - ( # ` W ) ) ) )
 lpadleft $p |- ( ph -> ( ( ( C leftpad W ) ` L ) ` N ) = C )
