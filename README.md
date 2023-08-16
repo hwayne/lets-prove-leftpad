@@ -1,6 +1,6 @@
 # Let's Prove Leftpad
 
-This is a repository of provably-correct versions of Leftpad.
+This is a repository of provably-correct versions of Leftpad. You can read more about the project's motivations and history [here](https://www.hillelwayne.com/post/lpl/).
 
 ## What is "provably-correct"?
 
@@ -39,4 +39,4 @@ We'd love to have you! Please [read the contribution guidelines](https://github.
 
 ### Plug
 
-If you want to learn more about formal methods, I shout at clouds on my [website](https://hillelwayne.com) and on [twitter](https://twitter.com/Hillelogram).
+If you want to learn more about formal methods, I shout at clouds on my [website](https://hillelwayne.com) and on [bluesky](https://bsky.app/profile/hillelwayne.com).
