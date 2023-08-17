@@ -11,8 +11,20 @@ This proof of leftpad is now part of the classical-logic, ZFC-based database, [`
 
 ## About the Proof
 
-Metamath proofs include every step, no exceptions, where each step is only an application of an axiom or a previously-proved statement. 
-The `set.mm` database already includes a section about the free monoid, where strings, i.e. words over sets, are represented as function, and the concatenation operation is defined. This implementation of `leftpad` uses those concepts.
+The `set.mm` database already includes a section about the free monoid, where strings, i.e. words over sets, are represented as functions, and the concatenation operation is defined. This implementation of `leftpad` uses those concepts.
+
+As you will have guessed, anything between `$(` and `$)` are comments.
+
+The first statement in the proof file, `$[ set.mm $]` instructs to include the `set.mm` database.
+
+The `$c leftpad` statements declares a new constant for the `leftpad` function.
+
+The `df-lpad $a |- leftpad = `... statement defines the `leftpad` function.
+
+Then all following statements represent proofs. A proof generally consists of 3 parts:
+- a list of hypotheses, enclosed in `$e` ... `$.`
+- the final statement, starting after `$p` 
+- the proof, between `$=` and `$.`. Metamath proofs include every step, no exceptions, where each step is only an application of an axiom or a previously-proved statement. The proofs provided here are in a compressed format. The first part, in parentheses, are the axioms and theorems applied, and the second part, in all caps, tells which to apply when.
 
 The definition and proofs for `leftpad` are available in a readable step-by-step format on the [Metamath website](http://us.metamath.org/):
 - [`df-lpad`, the definition](https://us.metamath.org/mpeuni/df-lpad.html)
