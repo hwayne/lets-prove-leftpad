@@ -3,3 +3,4 @@
 *.toolbox
 creusot/target
 creusot/Cargo.lock
+rust/target
