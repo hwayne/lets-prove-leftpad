@@ -4,17 +4,17 @@
 #[derive(Clone, Copy)]
 struct ConstLenString<const LEN: usize>([char; LEN]);
 
-struct Padded<const P: usize, const N: usize>(ConstLenString<P>, ConstLenString<N>);
+struct Repeated<const C: char, const R: usize>;
+
+struct Padded<const P: usize, const C: char, const N: usize>(Repeated<C, P>, ConstLenString<N>);
 
 trait LeftPad<const N: usize> {
-    fn leftpad<const R: usize>(self, pad: char) -> Padded<{ max(R, N) - N }, N>;
+    fn leftpad<const R: usize, const C: char>(self) -> Padded<{ max(R, N) - N }, C, N>;
 }
 
 impl<const N: usize> LeftPad<N> for ConstLenString<N> {
-    fn leftpad<const R: usize>(self, pad: char) -> Padded<{ max(R, N) - N }, N> {
-        let padding = std::array::from_fn(|_| pad);
-        let padding = ConstLenString(padding);
-        Padded(padding, self)
+    fn leftpad<const R: usize, const C: char>(self) -> Padded<{ max(R, N) - N }, C, N> {
+        Padded(Repeated, self)
     }
 }
 
@@ -29,6 +29,6 @@ const fn max(a: usize, b: usize) -> usize {
 pub fn proven_by_compiler() {
     let to_pad = ConstLenString(['h', 'e', 'l', 'l', 'o']);
 
-    let _padded: Padded<0, 5> = to_pad.leftpad::<4>('!');
-    let _padded: Padded<1, 5> = to_pad.leftpad::<6>('!');
+    let _padded: Padded<0, '!', 5> = to_pad.leftpad::<4, '!'>();
+    let _padded: Padded<1, '!', 5> = to_pad.leftpad::<6, '!'>();
 }
