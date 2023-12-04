@@ -19,7 +19,7 @@ From the Agda website:
 ### Defining maximum: comparing natural numbers
 
 The proof starts with an inductive family specifying what it means for a natural
-number to be either `less than or equal' or `greater than' another one.
+number to be either `less than or equal` or `greater than` another one.
 
 ```agda
 data LeOrGt : ℕ → ℕ → Set where
@@ -28,7 +28,7 @@ data LeOrGt : ℕ → ℕ → Set where
 ```
 
 The standard library already has various notions of `less than or equal` and
-`greater than' for natural numbers however this one will play well with the way
+`greater than` for natural numbers however this one will play well with the way
 `leftpad` is defined. It is always a good idea to pick the best representation
 available, proving it equivalent to other ones later if need be.
 
@@ -54,7 +54,7 @@ m ⊔ n with compare m n
 ### Implementing a correct-by-construction `leftpad`
 
 We then specify the result of `leftpad` as another inductive family in a module
-parametrised by the type of `characters' `A` and the padding character `x`:
+parametrised by the type of `characters` `A` and the padding character `x`:
 
 ```agda
 data LeftPad {n : ℕ} (xs : Vec A n) : ∀ m → Vec A m → Set where
