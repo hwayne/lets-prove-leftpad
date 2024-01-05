@@ -6,7 +6,7 @@ LiquidHaskell is a static verifier for Haskell, based on Liquid Types which
 refines Haskell's types with logical predicates that let you specify and 
 verify properties at compile time. 
 
-See[the blog](https://ucsd-progsys.github.io/liquidhaskell-blog/) for more details.
+See [the blog](https://ucsd-progsys.github.io/liquidhaskell-blog/) for more details.
 
 You can [run LH on the LeftPad proof here](http://goto.ucsd.edu:8090/index.html#?demo=LeftPad.hs).
 
