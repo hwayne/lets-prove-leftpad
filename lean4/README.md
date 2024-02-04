@@ -38,6 +38,10 @@ is that I only used built-in Lean 4 library, which intentionally very minimal,
 which lead me to prove a number of auxiliary lemmas stating basic properties of
 operations involved in the `leftpad` function and correctness conditions.
 
+For the proofs (even the statements) of `leftpad_prefix` and `leftpad_suffix`
+for `String`s I kinda cheat and reduce them to the statements on `List Char`
+instead, reusing some lemmas developed for the original `leftpad` proofs.
+
 
 ## About me
 
