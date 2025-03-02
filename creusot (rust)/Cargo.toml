@@ -1,0 +1,10 @@
+[package]
+name = "leftpad"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+creusot-contracts = { path = "{path_to_creusot}/creusot-contracts" }
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(creusot)'] }
