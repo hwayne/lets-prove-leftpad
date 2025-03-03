@@ -7,7 +7,7 @@ a backend.
 
 ## About the proof
 
-The version of Creusot that was used few years ago in this proof was a striking example of
+The version of Creusot that [was used a few years ago](https://github.com/hwayne/lets-prove-leftpad/tree/3fbc49f0b05cc9e9967edfbe586b87183dba8c7b/creusot) in this proof was a striking example of
 *research software.* The current version is much more mature.
 
 To verify this code:
