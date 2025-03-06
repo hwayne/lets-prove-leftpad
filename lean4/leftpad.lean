@@ -32,7 +32,6 @@ theorem prefix_concat [BEq α] [LawfulBEq α] (l m : List α) :
 theorem leftpad_prefix [BEq α] [LawfulBEq α] (n : Nat) (a : α) (l : List α) :
     (List.replicate (n - l.length) a).isPrefixOf (leftpad n a l) := by
   simp [leftpad]
-  apply prefix_concat (List.replicate (n - List.length l) a) l
 
 
 theorem suffix_concat [BEq α] [LawfulBEq α] (l m : List α) :
@@ -44,7 +43,6 @@ theorem suffix_concat [BEq α] [LawfulBEq α] (l m : List α) :
 theorem leftpad_suffix [BEq α] [LawfulBEq α] (n : Nat) (a : α) (l : List α) :
     l.isSuffixOf (leftpad n a l) := by
   simp [leftpad]
-  apply suffix_concat
 
 
 namespace Strings
@@ -57,7 +55,7 @@ def leftpad (n : Nat) (a : Char) (s : String) : String :=
 
 theorem length_append_distrib (s t : String) :
     (s ++ t).length = s.length + t.length := by
-  simp [HAppend.hAppend, Append.append, String.append, String.length]
+  simp [String.append, String.length]
 
 theorem length_push_data_succ (s : String) (a : Char) :
     (s.push a).data.length = s.data.length + 1 := by
@@ -89,24 +87,17 @@ theorem leftpad_length (n : Nat) (a : Char) (s : String) :
   cases (Nat.decLe n (String.length s)) with
   | isTrue h =>
     dsimp
-    rw [length_append_distrib ("".pushn a (n - s.length)) s]
     have z : n - s.length = 0 := Nat.sub_eq_zero_of_le h
-    rw [z, length_pushn_zero]
-    simp [String.length]
+    rw [z]
+    simp_arith
   | isFalse h =>
     dsimp
-    rw [length_append_distrib ("".pushn a (n - s.length)) s]
-    have ngt : n - s.length > 0 := by
-      simp [Nat.gt_of_not_le h, Nat.sub_ne_zero_of_lt, Nat.zero_lt_sub_of_lt]
-    rw [length_pushn_sub]
-    . simp [String.length]
-      apply Nat.sub_add_cancel (Nat.le_of_lt (Nat.gt_of_not_le h))
-    . assumption
+    simp [Nat.sub_add_cancel (Nat.le_of_lt (Nat.gt_of_not_le h))]
 
 
 theorem string_data_concat (s t : String) :
     (s ++ t).data = s.data ++ t.data := by
-  simp [HAppend.hAppend, Append.append, String.append]
+  simp [String.append]
 
 theorem replicate_cons (n : Nat) (a : α) :
     List.replicate n a ++ [a] = a :: List.replicate n a := by
@@ -122,19 +113,17 @@ theorem repeat_empty (c : Char) (n : Nat) :
     simp [Nat.repeat, String.push]
     simp [String.push] at ih
     rw [ih]
-    simp [replicate_cons]
+    simp [replicate_cons, List.replicate]
 
 theorem pushn_succ (m : Nat) (a : Char) :
     ("".pushn a m.succ).data = a :: ("".pushn a m).data := by
-  simp [String.pushn, repeat_empty]
+  simp [String.pushn, repeat_empty, List.replicate]
 
 theorem pushn_empty_replicate (n : Nat) (a : Char) :
     ("".pushn a n).data = List.replicate n a := by
   induction n with
   | zero      => simp [String.pushn, Nat.repeat]
-  | succ m ih =>
-    simp [Nat.repeat]
-    rw [<-ih, pushn_succ]
+  | succ m ih => rw [pushn_succ, ih, List.replicate]
 
 theorem leftpad_prefix (n : Nat) (a : Char) (s : String) :
     (List.replicate (n - s.length) a).isPrefixOf (leftpad n a s).data := by
@@ -146,4 +135,3 @@ theorem leftpad_prefix (n : Nat) (a : Char) (s : String) :
 theorem leftpad_suffix (n : Nat) (a : Char) (s : String) :
     s.data.isSuffixOf (leftpad n a s).data := by
   simp [leftpad, string_data_concat]
-  apply suffix_concat
