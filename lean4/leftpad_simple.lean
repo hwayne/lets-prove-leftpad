@@ -1,4 +1,7 @@
-
+/- More simplistic and straightforward version of the
+   leftpad specification and proofs in two versions:
+   for arbitrary lists in general and for strings specifically
+ -/
 
 variable {α : Type}
 
