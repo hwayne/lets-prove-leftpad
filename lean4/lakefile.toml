@@ -3,4 +3,4 @@ defaultTargets = ["LeftPad"]
 
 [[lean_lib]]
 name = "LeftPad"
-roots = ["leftpad_brief", "leftpad_simple"]
+roots = ["leftpad"]
