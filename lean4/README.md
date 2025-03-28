@@ -19,23 +19,12 @@ by the [Mathlib](https://github.com/leanprover-community/mathlib4) project.
 
 ## About the Code
 
-There are two versions: [`leftpad_simple.lean`](./leftpad_simple.lean) and
-[`leftpad_brief.lean`](./leftpad_brief.lean)
-
-The first version ("simple") is intended as a more educational one, featuring more
-basic straightforward proofs and auxiliary lemmas. It's split into two
-sections.
-
-The first part is a literal port of the `leftpad` function from the
+The first part is a literal translation of the `leftpad` function from the
 Lean 3 [code](../leanprover/leftpad.lean), it's defined in terms of lists of
 arbitrary elements (not necessarily characters).
 
 The second part in the `Strings` namespace defines another version of `leftpad`
 operating on `String`s (which are internally UTF8 strings in Lean 4).
-
-The second file ("brief") showcases more concise definitions and proofs reflecting
-more professional use of Lean 4 closer to real-world applications. Actual real-world
-examples can be found in great numbers in the aforementioned Mathlib project.
 
 
 ## About me
@@ -43,5 +32,5 @@ examples can be found in great numbers in the aforementioned Mathlib project.
 I'm Alex Chichigin ([Github](https://github.com/gabriel-fallen/),
 [blog](https://dev.to/gabrielfallen)) a formal methods enthusiast. :)
 
-The [`leftpad_brief.lean`](./leftpad_brief.lean) was contributed by
+The proofs for `Strings` version were contributed by
 [Сухарик](https://github.com/suhr).
