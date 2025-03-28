@@ -12,36 +12,13 @@ def leftpad (n : Nat) (a : α) (l : List α) : List α :=
 
 theorem leftpad_length (n : Nat) (a : α) (l : List α) :
     (leftpad n a l).length = max n (l.length) := by
-  simp [leftpad, Nat.max_def]
-  unfold ite
-  cases (Nat.decLe n (List.length l)) with
-  | isTrue h =>
-    dsimp
-    rw [Nat.sub_eq_zero_of_le]
-    . simp
-    . assumption
-  | isFalse h =>
-    dsimp
-    rw [Nat.sub_add_cancel]
-    apply Nat.le_of_lt (Nat.gt_of_not_le h)
+  simp [leftpad, Nat.sub_add_eq_max]
 
-
-theorem prefix_concat [BEq α] [LawfulBEq α] (l m : List α) :
-    l.isPrefixOf (l ++ m) := by
-  induction l with
-  | nil => simp [List.isPrefixOf]
-  | cons x xs ih => simp [List.isPrefixOf, ih]
 
 theorem leftpad_prefix [BEq α] [LawfulBEq α] (n : Nat) (a : α) (l : List α) :
     (List.replicate (n - l.length) a).isPrefixOf (leftpad n a l) := by
   simp [leftpad]
 
-
-theorem suffix_concat [BEq α] [LawfulBEq α] (l m : List α) :
-    m.isSuffixOf (l ++ m) := by
-  unfold List.isSuffixOf
-  rw [List.reverse_append]
-  apply prefix_concat (List.reverse m) (List.reverse l)
 
 theorem leftpad_suffix [BEq α] [LawfulBEq α] (n : Nat) (a : α) (l : List α) :
     l.isSuffixOf (leftpad n a l) := by
