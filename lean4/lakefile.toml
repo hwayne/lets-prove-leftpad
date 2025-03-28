@@ -1,0 +1,6 @@
+name = "leftpad-lean4"
+defaultTargets = ["LeftPad"]
+
+[[lean_lib]]
+name = "LeftPad"
+roots = ["leftpad"]
