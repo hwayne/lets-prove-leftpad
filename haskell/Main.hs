@@ -9,7 +9,7 @@
 {-# LANGUAGE UndecidableInstances #-}
 module Main where
 
-import Data.Maybe (fromMaybe)
+import Data.Maybe (fromJust)
 import Data.Proxy (Proxy(..))
 import GHC.TypeLits (Nat, type (<=?), KnownNat)
 import Data.Type.Bool (If)
@@ -35,21 +35,22 @@ padString _ _ c = V.replicate c
 class ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual (pad :: Nat) (n :: Nat)
 instance ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual pad n
 
+
 leftPad :: forall (pad :: Nat) (n :: Nat).
            (KnownNat pad, KnownNat n, KnownNat (PadK pad n), PadKMaxEqual pad n)
          => Char                           -- Padding character
          -> Proxy pad                      -- Length with padding
-         -> Proxy n                        -- Raw length
          -> V.Vector n Char                -- The original vector (length n)
          -> V.Vector (Max pad n) Char      -- Result: padded to max(n, pad)
-leftPad c pPad pN str = (padString pPad pN c) V.++ str
+leftPad c pPad str = (padString pPad (proxyN str) c) V.++ str
+  where
+    proxyN :: KnownNat n => V.Vector n a -> Proxy n
+    proxyN _ = Proxy
 
-
-example =
-  case V.fromList "foo" of
-    Just s -> leftPad '!' (Proxy @5) (Proxy @3) s
-    Nothing -> error "Vector creation failed!"
-
+example = leftPad '!' (Proxy @5) getStr
+  where
+    myStr  = V.fromList "foo" :: Maybe (V.Vector 3 Char)
+    getStr = fromJust myStr
 
 main :: IO ()
 main = putStrLn $ show example

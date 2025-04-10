@@ -33,11 +33,11 @@ class ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual (pad :: Nat) (n :: Nat)
 instance ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual pad n
 ```
 
-The API to call this function is slightly awkward at present. It looks like the following:
+The API to call this function is slightly awkward at present. It approximately looks like the following:
 
 ```
-leftPad '!' (Proxy @5) (Proxy @3) "foo"
+leftPad '!' (Proxy @5) (fromList "foo" :: Vector 3 Char)
 ```
 
-The padding value and the length of the string being supplied has to be wrapped into a `Proxy n` type. This can be abstracted over using a CPS transform but is besides the problem at hand.
+The padding value has to be wrapped into a `Proxy n` type to lift it at the type-level, and the string length has to be annotated, again for the purposes of type-level computations.
 
