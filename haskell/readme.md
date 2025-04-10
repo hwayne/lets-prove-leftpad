@@ -26,14 +26,14 @@ type family PadK (pad :: Nat) (n :: Nat) :: Nat where
 
 The solution uses the [`vector-sized`](https://hackage.haskell.org/package/vector-sized) library for length-indexed vectors. There is no reason to use this particular library. Its easily possible to roll out your own sized vector implementation, but the library provides a nice Prelude to work with sized vectors.
 
-Written modularly, I defined a `padString` function that produces a length index vector representing the pad prefix, further constrained by the type family `PadK`. The only challenging part of this implementation was when combining this pad prefix with the original string, requires triggering a type level computation that shows `(PadK pad n) + n ~ Max pad n`. I accomplish this using the following multi-parameter typeclass, which constrains the final result:
+Written modularly, I defined a `padString` function that produces a length-indexed vector representing the pad prefix, further constrained by the type family `PadK`. The only challenging part of this implementation was when combining this pad prefix with the original string, requires triggering a type level computation that shows `(PadK pad n) + n ~ Max pad n`. I accomplish this using the following multi-parameter typeclass, which constrains the final result:
 
 ```haskell
 class ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual (pad :: Nat) (n :: Nat)
 instance ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual pad n
 ```
 
-The API to call this function is slightly awkward at presnt. It looks like the following
+The API to call this function is slightly awkward at present. It looks like the following:
 
 ```
 leftPad '!' (Proxy @5) (Proxy @3) "foo"
