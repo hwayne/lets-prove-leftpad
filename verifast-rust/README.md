@@ -1,5 +1,5 @@
-[VeriFast for Rust](https://github.com/verifast/verifast)
-===================
+[VeriFast](https://github.com/verifast/verifast)
+==========
 
 About VeriFast
 --------------
@@ -48,7 +48,9 @@ The call of lemma [`div_rem_nonneg`](https://github.com/verifast/verifast/blob/3
 
 ### How to run
 
-Download the latest [`nightly build`](https://github.com/verifast/verifast/releases/tag/nightly) for your platform, extract the archive to anywhere on your computer (on Macs, first [remove the quarantine bit](https://github.com/verifast/verifast?tab=readme-ov-file#binaries)), and run `path/to/verifast/bin/vfide leftpad.rs`. In the IDE, click the Play toolbar button to verify the program.
+Download the latest [nightly build](https://github.com/verifast/verifast/releases/tag/nightly) for your platform, extract the archive to anywhere on your computer (on Macs, first [remove the quarantine bit](https://github.com/verifast/verifast?tab=readme-ov-file#binaries)), and run `path/to/verifast/bin/vfide leftpad.rs`. In the IDE, click the Play toolbar button to verify the program.
+
+Note: This example is also in the [VeriFast test suite](https://github.com/verifast/verifast/blob/master/tests/rust/purely_unsafe/leftpad.rs) and [runs in CI](https://github.com/verifast/verifast/actions/workflows/build.yml).
 
 ### Addendum: using `leftpad` in safe code
 
@@ -60,3 +62,7 @@ paths; as a result, for now, `leftpad_vec` can only be verified while ignoring u
 if the `reserve` call unwinds, `Vec_to_own` needs to be called. Secondly, VeriFast does not yet support
 specifying functional correctness properties of safe functions; for now, VeriFast verifies only their semantic
 well-typedness.
+
+### Addendum: VeriFast for C and Java
+
+A C version of `leftpad`, verified with VeriFast, can be found [here](https://github.com/verifast/verifast/blob/master/examples/leftpad.c) with some [explanations](https://github.com/verifast/verifast/blob/master/examples/leftpad.md), and a Java version can be found [here](https://github.com/verifast/verifast/blob/master/examples/java/leftpad.java).
