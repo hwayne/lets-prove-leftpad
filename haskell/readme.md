@@ -1,45 +1,65 @@
 ## Haskell
 
-This is a Haskell-based solution of the `leftpad` problem. The code with its build dependencies is available in [this repo](https://github.com/Abhiroop/leftpad/tree/master). Simply clone this and run `cabal run` on your terminal and it should work. Tested with GHC version 9.2.8.
+This is a Haskell-based solution of the `leftpad` problem. The code as a build artifact is available at [this repo](https://github.com/Abhiroop/leftpad/tree/master). Simply clone and run `cabal run` on your terminal and it should work. Tested with GHC version 9.6.7.
 
 ### About Haskell
 
 There is very little to say about Haskell, especially in this repo, where it ends up being one of the more vanilla languages in the lineup.
 
-Of course, any "proof" written in Haskell is inherently unsound because the language permits bottom values (such as `undefined` or `error`), which can inhabit any type, and its non-totality allows infinite loops. However, if one is ready to discount these factors, this example shows how relatively old language extensions in Haskell like `GADTs`, `Type Families` and `Multi Parameter Typeclasses` (almost all of them introduced before 2006), can promote writing correct-by-construction code.
+Of course, any "proof" written in Haskell is inherently unsound because the language permits bottom values (such as `undefined` or `error`), which can inhabit any type, and its non-totality allows infinite loops. However, if one is ready to discount these factors, this example shows how one can exploit a single key type-level programming feature - `Close Type Families` - to write correct-by-construction code.
 
-Also, I believe this is the only solution in this repo that uses a mainstream Turing-complete language without resorting to any external tools (like an SMT solver) to do the proof, keeping the TCB minimal. (The `java` solution uses OpenJML, which employs an SMT solver).
+Also, I believe this is the only solution in this repo that uses a mainstream Turing-complete language without resorting to any external tools (like an SMT solver) to do the proof, keeping the TCB minimal. (The `java` solution uses OpenJML, which employs an SMT solver). Also, this solution relies on no external Haskell libraries - simply the `base` from GHC 9.6.7.
 
 ### About the proof
 
-The proof is quite small and should be fairly self-explanatory. To capture the 3 specification we use two type families:
+The code is heavily documented for readability. The entire leftpad computation is done at the type-level such that I can move structural constraints (such as spec (i)) as well as relational constraints (specs (ii) and (iii)) at the type-level. Size-indexed vectors are typically sufficient for spec (i), but to capture (ii) and (iii) I used `Symbol` from `GHC.TypeLits` and its associated type families such as `ConsSymbol`, `AppendSymbol`, `UnconsSymbol` to do the string manipulation. The key leftpad operation is small enough to be shown here:
 
 ```haskell
-type family Max (a :: Nat) (b :: Nat) :: Nat where
-  Max a b = If (a <=? b) b a
+-- | A type-level replicate function
+type family Replicate (n :: Nat) (c :: Char) :: Symbol where
+  Replicate 0 c = ""
+  Replicate n c = ConsSymbol c (Replicate (n - 1) c)
 
-type family PadK (pad :: Nat) (n :: Nat) :: Nat where
-  PadK pad n = If (pad <=? n) 0 (pad - n)
+-- | A type-level computation of the pad value
+type family PadK (n :: Nat) (strlen :: Nat) :: Nat where
+  PadK n strlen = If (n <=? strlen) 0 (n - strlen)
+
+-- | Use `AppendSymbol` to append the pad string using Replicate and PadK
+type family PrependReplicate (c :: Char)     (n :: Nat)
+                             (strlen :: Nat) (s :: Symbol) :: Symbol where
+  PrependReplicate c n strlen s = AppendSymbol (Replicate (PadK n strlen) c) s
 ```
 
-The solution uses the [`vector-sized`](https://hackage.haskell.org/package/vector-sized) library for length-indexed vectors. There is no reason to use this particular library. Its easily possible to roll out your own sized vector implementation, but the library provides a nice Prelude to work with sized vectors.
+The rest of the code is dedicated to checking the 3 specification and I demarcate them clearly in the code. A type-level assertion is defined as the type family `Assert`. We use it to provide meaningful (type level) error messages. The code is very intentionally broken into smaller type families with helpful comments to allow the reader to understand how each spec is enforced.
 
-Written modularly, I defined a `padString` function that produces a length-indexed vector representing the pad prefix, further constrained by the type family `PadK`. `PadK` ensures that the pad string is `""` if the pad length, `pad`, is less than or equal to the string length, `n`, otherwise it pads by the amount `pad - n`. This computation is entirely done at the type level, such that the function body creates the pad string entirely directed by the type-level value. This part captures the specification (ii) and (iii).
-
-For capturing specification (i), we find that specification (ii) and (iii) results that the final string length is always `max (pad, n)`. This is captured using the `Max` type family. The key challenging part of this implementation was when combining the pad prefix with the original string, requires triggering a type level computation that shows `(PadK pad n) + n ~ Max pad n`. I accomplish this using the following multi-parameter typeclass, which constrains the final result:
+After defining the 3 specifications we enforce it in the final term-level function (with the type-level constraints) as:
 
 ```haskell
-class ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual (pad :: Nat) (n :: Nat)
-instance ((PadK pad n) + n ~ Max pad n) => PadKMaxEqual pad n
+leftPad :: forall c n s strlen full.
+           ( full ~ PrependReplicate c n strlen s -- like a type-level `let`
+           , PadKMaxEqualConstraint n strlen      -- Spec 1
+           , ValidatePrepend c n strlen s         -- Spec 2
+           , ValidateSuffix  c n strlen s         -- Spec 3
+           , KnownSymbol full -- used for `reifying` the type-level symbol
+           )
+        => Proxy s
+        -> Proxy strlen
+        -> String
+leftPad _ _ = symbolVal (Proxy @full)
 ```
 
-This solution is closest to the `Idris`-based solution. The API to call this function is slightly awkward at present. It approximately looks like the following:
+An interesting function here is `symbolVal`, whose type is `symbolVal :: forall (n :: Symbol) proxy. KnownSymbol n => proxy n -> String`. This function is used to `reify` the final type level computed value to the term-level as the last step. This has resemblance to the `reify` operation used in Normalisation by Evaluation (a type-theoretic technique used in dependent-typed languages' typecheckers).
+
+I tried my best to keep the trusted code base as minimal as possible, to the point of not including any external Haskell libraries as well. I am sure the `singletons` library will have some elegant approach to encode this but I think this solution is already clean enough. It doesn't use too many language extensions and unlike a previous solution, I do not invoke Multi-Parameter Typeclasses or even GADTs. Everything is encoded using a single key type-level feature — type families — to the extent that one can find an almost one-to-one correspondence at the type level with the well-known term-level operations. Except at the type-level, computations are typically encoded using a decidable logic fragment (I had to invoke `UndecidableInstances` because the GHC typechecker's termination checker is not sophisticated enough like Agda).
+
+
+The API to call this function is slightly awkward at present. It approximately looks like the following:
 
 ```
-leftPad '!' (Proxy @5) (fromList "foo" :: Vector 3 Char)
+leftPad @'!' @5 (Proxy @"foo") (Proxy @3)
 ```
 
-The padding value has to be wrapped into a `Proxy n` type to lift it at the type-level, and the string length has to be annotated, again for the purposes of type-level computations. A clarification to reduce any source of confusion: I call the variable `n` in the original specification as `pad` and `len(str)` as `n`.
+The padding character and the pad length are supplied as type variables. `@` is type application. The string and its length are wrapped in corresponding `Proxy n` types to lift them to the type level.
 
 
 ### About me
