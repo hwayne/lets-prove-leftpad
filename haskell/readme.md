@@ -6,13 +6,13 @@ This is a Haskell-based solution of the `leftpad` problem. The code as a build a
 
 There is very little to say about Haskell, especially in this repo, where it ends up being one of the more vanilla languages in the lineup.
 
-Of course, any "proof" written in Haskell is inherently unsound because the language permits bottom values (such as `undefined` or `error`), which can inhabit any type, and its non-totality allows infinite loops. However, if one is ready to discount these factors, this example shows how one can exploit a single key type-level programming feature - `Close Type Families` - to write correct-by-construction code.
+Of course, any "proof" written in Haskell is inherently unsound because the language permits bottom values (such as `undefined` or `error`), which can inhabit any type, and its non-totality allows infinite loops. However, if one is ready to discount these factors, this example shows how one can exploit a single key type-level programming feature - `Closed Type Families` - to write correct-by-construction code.
 
 Also, I believe this is the only solution in this repo that uses a mainstream Turing-complete language without resorting to any external tools (like an SMT solver) to do the proof, keeping the TCB minimal. (The `java` solution uses OpenJML, which employs an SMT solver). Also, this solution relies on no external Haskell libraries - simply the `base` from GHC 9.6.7.
 
 ### About the proof
 
-The code is heavily documented for readability. The entire leftpad computation is done at the type-level such that I can move structural constraints (such as spec (i)) as well as relational constraints (specs (ii) and (iii)) at the type-level. Size-indexed vectors are typically sufficient for spec (i), but to capture (ii) and (iii) I used `Symbol` from `GHC.TypeLits` and its associated type families such as `ConsSymbol`, `AppendSymbol`, `UnconsSymbol` to do the string manipulation. The key leftpad operation is small enough to be shown here:
+The code is heavily documented for readability. The entire leftpad computation is done at the type-level such that I can move structural constraints (such as spec (i)) as well as relational constraints (specs (ii) and (iii)) at the type-level. Size-indexed vectors are typically sufficient for spec (i), but to capture (ii) and (iii) I used `Symbol` from `GHC.TypeLits` and its associated type families such as `ConsSymbol`, `AppendSymbol`, `UnconsSymbol` to do the string manipulation. The key leftpad operation (as a type-level specification) is small enough to be shown here:
 
 ```haskell
 -- | A type-level replicate function
