@@ -37,9 +37,9 @@ After defining the 3 specifications we enforce it in the final term-level functi
 ```haskell
 leftPad :: forall c n s strlen full.
            ( full ~ PrependReplicate c n strlen s -- like a type-level `let`
-           , PadKMaxEqualConstraint n strlen      -- Spec 1
-           , ValidatePrepend c n strlen s         -- Spec 2
-           , ValidateSuffix  c n strlen s         -- Spec 3
+           , PadKMaxEqualConstraint n strlen full -- Spec 1
+           , ValidatePrepend c n strlen full      -- Spec 2
+           , ValidateSuffix  s full               -- Spec 3
            , KnownSymbol full -- used for `reifying` the type-level symbol
            )
         => Proxy s
@@ -48,7 +48,9 @@ leftPad :: forall c n s strlen full.
 leftPad _ _ = symbolVal (Proxy @full)
 ```
 
-An interesting function here is `symbolVal`, whose type is `symbolVal :: forall (n :: Symbol) proxy. KnownSymbol n => proxy n -> String`. This function is used to `reify` the final type level computed value to the term-level as the last step. This has resemblance to the `reify` operation used in Normalisation by Evaluation (a type-theoretic technique used in dependent-typed languages' typecheckers).
+This above is approximately saying "Given the type-level specification of leftpad as the PrependReplicate type family, generate a string satisfying specs 1, 2 and 3". In Curry-Howard speak, the generated string is a proof of the proposition encoding the leftpad specification.
+
+An interesting function above is `symbolVal`, whose type is `symbolVal :: forall (n :: Symbol) proxy. KnownSymbol n => proxy n -> String`. This function is used to `reify` the final type level computed value to the term-level as the last step. This has resemblance to the `reify` operation used in Normalisation by Evaluation (a type-theoretic technique used in dependent-typed languages' typecheckers).
 
 I tried my best to keep the trusted code base as minimal as possible, to the point of not including any external Haskell libraries as well. I am sure the `singletons` library will have some elegant approach to encode this but I think this solution is already clean enough. It doesn't use too many language extensions and unlike a previous solution, I do not invoke Multi-Parameter Typeclasses or even GADTs. Everything is encoded using a single key type-level feature — type families — to the extent that one can find an almost one-to-one correspondence at the type level with the well-known term-level operations. Except at the type-level, computations are typically encoded using a decidable logic fragment (I had to invoke `UndecidableInstances` because the GHC typechecker's termination checker is not sophisticated enough like Agda).
 

@@ -54,14 +54,18 @@ type family Assert (cond :: Bool) (msg :: ErrorMessage) :: Constraint where
 type family Max (a :: Nat) (b :: Nat) :: Nat where
   Max a b = If (a <=? b) b a
 
--- | the output length comes from PrependReplicate above as
---   (PadK n strlen) + strlen
-type family PadKMaxEqual (n :: Nat) (strlen :: Nat) :: Bool where
-  PadKMaxEqual n strlen = (PadK n strlen) + strlen == Max n strlen
+-- | Type-level symbol length
+type family Length (p :: Symbol) :: Nat where
+  Length "" = 0
+  Length s  = 1 + Length (TailSymbol s)
 
--- | Ensure at compile time that (PadK n strlen) + strlen = max (n, strlen)
-type PadKMaxEqualConstraint (n :: Nat) (strlen :: Nat) =
-  Assert (PadKMaxEqual n strlen)
+-- | Spec 1 verbatim
+type family PadKMaxEqual (n :: Nat) (strlen :: Nat) (full :: Symbol) :: Bool where
+  PadKMaxEqual n strlen full = Length full == Max n strlen
+
+-- | Compile time check that padded string length = max (n, strlen)
+type PadKMaxEqualConstraint (n :: Nat) (strlen :: Nat) (full :: Symbol) =
+  Assert (PadKMaxEqual n strlen full)
     ( 'Text    "PadKMaxEqual failed: (PadK "
    ':<>: 'ShowType n
    ':<>: 'Text    " "
@@ -95,7 +99,7 @@ type family IsPrefixRec
     (c == c') && IsPrefix p' s'
   IsPrefixRec _            _                    = 'False
 
--- | Ensure at compile time that `s` starts with `p`
+-- | Compile time check that `s` starts with `p`
 type PrefixConstraint (p :: Symbol) (s :: Symbol) =
   Assert (IsPrefix p s)
     ( 'Text    "Symbol "
@@ -109,8 +113,8 @@ type PrefixedByReplicate (c :: Char) (n :: Nat) (strlen :: Nat) (full :: Symbol)
   PrefixConstraint (Replicate (PadK n strlen) c) full
 
 -- | The actual validation that the newly‑built symbol actually has the right prefix.
-type ValidatePrepend (c :: Char) (n :: Nat) (strlen :: Nat) (s :: Symbol) =
-  PrefixedByReplicate c n strlen (PrependReplicate c n strlen s)
+type ValidatePrepend (c :: Char) (n :: Nat) (strlen :: Nat) (full :: Symbol) =
+  PrefixedByReplicate c n strlen full
 
 
 
@@ -128,35 +132,30 @@ type family Drop (n :: Nat) (s :: Symbol) :: Symbol where
   Drop 0 s = s
   Drop n s = Drop (n - 1) (TailSymbol s)
 
-type family Length (p :: Symbol) :: Nat where
-  Length "" = 0
-  Length s  = 1 + Length (TailSymbol s)
-
 -- | Suffix check
-type family IsSuffix (p :: Symbol) (s :: Symbol) :: Bool where
-  IsSuffix p s = p == Drop (Length s - Length p) s
+type family IsSuffix (s :: Symbol) (full :: Symbol) :: Bool where
+  IsSuffix s full = s == Drop (Length full - Length s) full
 
 -- | Ensure at compile time that `p` is a suffix of `s`
-type SuffixConstraint (p :: Symbol) (s :: Symbol) =
-  Assert (IsSuffix p s)
+type SuffixConstraint (s :: Symbol) (full :: Symbol) =
+  Assert (IsSuffix s full)
     ( 'Text    "Symbol "
-   ':<>: 'ShowType s
+   ':<>: 'ShowType full
    ':<>: 'Text    " does not end with "
-   ':<>: 'ShowType p
+   ':<>: 'ShowType s
     )
 
 -- | The actual validation that the newly‑built symbol actually has the right suffix.
-type ValidateSuffix c n strlen s =
-  SuffixConstraint s (PrependReplicate c n strlen s)
+type ValidateSuffix s full = SuffixConstraint s full
 
 
 
 -- | Putting Specs 1, 2, and 3 together
 leftPad :: forall c n s strlen full.
            ( full ~ PrependReplicate c n strlen s -- like a type-level `let`
-           , PadKMaxEqualConstraint n strlen      -- Spec 1
-           , ValidatePrepend c n strlen s         -- Spec 2
-           , ValidateSuffix  c n strlen s         -- Spec 3
+           , PadKMaxEqualConstraint n strlen full -- Spec 1
+           , ValidatePrepend c n strlen full      -- Spec 2
+           , ValidateSuffix  s full               -- Spec 3
            , KnownSymbol full -- used for `reifying` the type-level symbol
            )
         => Proxy s
