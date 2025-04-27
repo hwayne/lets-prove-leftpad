@@ -152,24 +152,23 @@ type ValidateSuffix s full = SuffixConstraint s full
 
 -- | Putting Specs 1, 2, and 3 together
 leftPad :: forall c n s strlen full.
-           ( full ~ PrependReplicate c n strlen s -- like a type-level `let`
+           ( strlen ~ Length s
+           , full ~ PrependReplicate c n strlen s -- like a type-level `let`
            , PadKMaxEqualConstraint n strlen full -- Spec 1
            , ValidatePrepend c n strlen full      -- Spec 2
            , ValidateSuffix  s full               -- Spec 3
            , KnownSymbol full -- used for `reifying` the type-level symbol
            )
-        => Proxy s
-        -> Proxy strlen
-        -> String
-leftPad _ _ = symbolVal (Proxy @full)
+        => Proxy s -> String
+leftPad _ = symbolVal (Proxy @full)
 
 
 -- | Tests
 test1, test2, test3, test4 :: String
-test1 = leftPad @'!' @7 (Proxy @"abc") (Proxy @3)
-test2 = leftPad @'!' @3 (Proxy @"xyz") (Proxy @3)
-test3 = leftPad @'!' @5 (Proxy @"foo") (Proxy @3)
-test4 = leftPad @'!' @0 (Proxy @"foo") (Proxy @3)
+test1 = leftPad @'!' @7 (Proxy @"abc")
+test2 = leftPad @'!' @3 (Proxy @"xyz")
+test3 = leftPad @'!' @5 (Proxy @"foo")
+test4 = leftPad @'!' @0 (Proxy @"foo")
 
 main :: IO ()
 main = do
