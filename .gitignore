@@ -1,5 +1,6 @@
 *.pdf
 *.tlaps
 *.toolbox
+_apalache-out/
 creusot/target
 creusot/Cargo.lock
