@@ -13,6 +13,10 @@ Along with your leftpad, you should include a `readme.md` file. It should contai
 * A link to an online demo of your leftpad, if your language has one.
 * A description of the language. What does it look like? How does it work? What makes it different or special?
 * A description of your proof. How does it work? What interesting language properties or verification techniques does it showcase?
-* Anything you want to plug, like your website or twitter or CV. You proved Leftpad! Brag a bit!
+* Anything you want to plug, like your website or CV. You proved Leftpad! Brag a bit!
 
 That's pretty much it!
+
+## AI Policy
+
+While you may use AI to assist in figuring out your submission, all final code, explanations, and pull requests should be written entirely by a human. Remember, this is a comparative showcase and we have to trust that submitters understand their own code and proof methods. If we see AI prose, we can't be sure of that.
