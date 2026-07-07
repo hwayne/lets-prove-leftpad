@@ -3,11 +3,9 @@
     Apr-Jun 2018.
 *)
 
-Require Import Arith.
-Require Import List.
-Require Import Omega.
-
-(* Require Import listkit. *)
+From Stdlib Require Import Arith.
+From Stdlib Require Import List.
+From Stdlib Require Import Lia.
 
 (** [cutn] breaks a list into prefix, suffix at [n]. *)
 Definition cutn A n (xs : list A) := (firstn n xs, skipn n xs).
@@ -17,17 +15,34 @@ Lemma cutn_app:
   forall A n (xs ys : list A),
     n = length xs -> cutn A n (xs ++ ys) = (xs, ys).
 Proof.
- induction n; destruct xs; simpl; easy||auto.
+ induction n; destruct xs; simpl; intros.
+ - reflexivity.
+ - discriminate H.
+ - discriminate H.
+ - injection H as Hj.
+   apply IHn with (ys := ys) in Hj .
+   injection Hj as Hjj.
+   unfold cutn.
+   simpl. rewrite Hjj. rewrite H.
+   reflexivity.
+Qed.
+
+(** shorter tha cutn_app but more magic *)
+Lemma cutn_app_auto:
+  forall A n (xs ys : list A),
+    n = length xs -> cutn A n (xs ++ ys) = (xs, ys).
+Proof.
+ induction n; destruct xs; easy||auto.
  intros.
  unfold cutn in *.
- simpl.
- lapply (IHn xs ys).
+
+ lapply (IHn xs ys); simpl in *.
  - congruence.
- - omega.
+ - lia.
 Qed.
 
 Hint Rewrite
-     app_length
+     length_app
      repeat_length
   : list.
 
@@ -39,9 +54,7 @@ Lemma minus_plus_max:
   forall m n, m - n + n = max m n.
 Proof.
  intros.
- destruct (le_lt_dec m n).
- - rewrite max_r; omega.
- - rewrite max_l; omega.
+ destruct (le_lt_dec m n); [ rewrite max_r | rewrite max_l ]; lia.
 Qed.
 
 Hint Resolve minus_plus_max : arith.
