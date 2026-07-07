@@ -3,3 +3,5 @@
 *.toolbox
 creusot/target
 creusot/Cargo.lock
+/coq/.lia.cache
+/rocq/.lia.cache
