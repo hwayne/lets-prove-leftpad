@@ -58,7 +58,7 @@ account for overflow of `n - len`.
 With [Docker](https://hub.docker.com/r/seahorn/seahorn-llvm14):
 
 ```
-docker run -v $(pwd):/host -it seahorn/seahorn-llvm14:nightly \
+docker run --rm -v $(pwd):/host -it seahorn/seahorn-llvm14:nightly \
     sea pf /host/leftpad.c
 ```
 
