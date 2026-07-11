@@ -12,6 +12,10 @@
 extern int nd_int(void);
 extern char nd_char(void);
 
+/* SeaHorn built-in: marks `size` bytes at `ptr` as holding arbitrary
+ * values. */
+extern void memhavoc(void *ptr, size_t size);
+
 static int max(int a, int b) { return a > b ? a : b; }
 
 /* The code under verification. Pads string `s` of length `len` on the
@@ -56,8 +60,7 @@ int main(void) {
 
   /* An arbitrary string: `len` nondeterministic characters. */
   char *s = malloc(len);
-  for (int i = 0; i < len; ++i)
-    s[i] = nd_char();
+  memhavoc(s, len);
   char *out = malloc(expected);
 
   int outlen = leftpad(c, n, s, len, out);
